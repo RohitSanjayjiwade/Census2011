@@ -71,7 +71,7 @@
                 <tr>
                   <th scope="row">{{village.id}}</th>
                   <td><a href="/census/village/{{ village.id }}">{{ village.name }}</a></td>
-                  <td><a href="/census/village/{{ village.id }}">{{ village.pincode }}</a></td>
+                  <td><a href="/{{village.pincode}}">{{ village.pincode }}</a></td>
                 </tr>
                 {% endfor %}
               </tbody>
