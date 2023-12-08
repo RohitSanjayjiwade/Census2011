@@ -6,9 +6,11 @@ from .models import State
 from .models import District
 from .models import City
 from .models import Village
+from .models import Data
 
 admin.site.register(State)
 admin.site.register(District)
 admin.site.register(City)
 admin.site.register(Village)
+admin.site.register(Data)
 
