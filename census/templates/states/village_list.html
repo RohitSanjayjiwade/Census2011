@@ -63,6 +63,7 @@
                   <th scope="col">#</th>
                   <th scope="col">Village Name</th>
                   <th scope="col">Pincode</th>
+                  <th scope="col">Population(Total)</th>
                 </tr>
               </thead>
               <tbody> 
@@ -72,6 +73,7 @@
                   <th scope="row">{{village.id}}</th>
                   <td><a href="/census/village/{{ village.id }}">{{ village.name }}</a></td>
                   <td><a href="/{{village.pincode}}">{{ village.pincode }}</a></td>
+                  <td>{{ village.rural_data.total_popul_persons}}</td>
                 </tr>
                 {% endfor %}
               </tbody>

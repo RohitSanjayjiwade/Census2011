@@ -62,7 +62,10 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">District Name</th>
+                                <th scope="col">States Name</th>
+                                <th scope="col">Population(Total)</th>
+                                <th scope="col">Population(Rural)</th>
+                                <th scope="col">Population(Urban)</th>
                             </tr>
                             </thead>
                             <tbody> 
@@ -71,6 +74,9 @@
                             <tr>
                                 <th scope="row">{{state.id}}</th>
                                 <td><a href="/census/states/{{ state.id }}/">{{ state.name }}</a></td>
+                                <td>{{ state.data.total_popul_persons}}</td>
+                                <td>{{ state.rural_data.total_popul_persons}}</td>
+                                <td>{{ state.urban_data.total_popul_persons}}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

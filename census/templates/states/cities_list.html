@@ -62,6 +62,9 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">City Name</th>
+                  <th scope="col">Population(Total)</th>
+                  <th scope="col">Population(Rural)</th>
+                  <th scope="col">Population(Urban)</th>
                 </tr>
               </thead>
               <tbody> 
@@ -70,6 +73,9 @@
                 <tr>
                   <th scope="row">{{cities.id}}</th>
                   <td><a href="/census/cities/{{ cities.id }}/">{{cities.name}}</a></td>
+                  <td>{{ cities.data.total_popul_persons}}</td>
+                  <td>{{ cities.rural_data.total_popul_persons}}</td>
+                  <td>{{ cities.urban_data.total_popul_persons}}</td>
                 </tr>
                 {% endfor %}
               </tbody>

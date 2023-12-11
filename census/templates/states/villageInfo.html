@@ -52,6 +52,232 @@
         </div>
     </nav>
 
+        <section>
+      <div class="card me-3 my-5">
+        <div class="table-responsive">
+          <!-- State List -->
+           {% if village %}
+           <h1>{{village.name}} Total Population Data</h1>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
+                <th scope="col">Person</th>
+                <th scope="col">Male</th>
+                <th scope="col">Female</th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr>
+                <th>1</th>
+                <th>Number Of Houshold  ______________________________      {{ village.rural_data.no_of_houshold}}</th>
+              </tr>
+              <tr>
+                <th>2</th>
+                 <th>Total Populaton</th>
+                 <td>{{ village.rural_data.total_popul_persons}}</td>
+                 <td>{{ village.rural_data.total_popul_males}}</td>
+                 <td>{{ village.rural_data.total_popul_females}}</td>
+              </tr>
+              <tr>
+                <th>3</th>
+                 <th>Populaton in Age</th>
+                 <td>{{ village.rural_data.popul_in_agePersons}}</td>
+                 <td>{{ village.rural_data.popul_in_ageMales}}</td>
+                 <td>{{ village.rural_data.popul_in_ageFemales}}</td>
+              </tr>
+              <tr>
+                <th>4</th>
+                 <th>Cast Populaton</th>
+                 <td>{{ village.rural_data.caste_popul_persons}}</td>
+                 <td>{{ village.rural_data.caste_popul_males}}</td>
+                 <td>{{ village.rural_data.caste_popul_females}}</td>
+              </tr>
+              <tr>
+                <th>5</th>
+                 <th>Tribe Populaton</th>
+                 <td>{{ village.rural_data.tribe_popul_persons}}</td>
+                 <td>{{ village.rural_data.tribe_popul_males}}</td>
+                 <td>{{ village.rural_data.tribe_popul_females}}</td>
+              </tr>
+              <tr>
+                <th>6</th>
+                 <th>Literates Persons</th>
+                 <td>{{ village.rural_data.literates_persons}}</td>
+                 <td>{{ village.rural_data.literates_males}}</td>
+                 <td>{{ village.rural_data.literates_females}}</td>
+              </tr>
+              <tr>
+                <th>7</th>
+                 <th>Illiterates Persons</th>
+                 <td>{{ village.rural_data.literates_persons}}</td>
+                 <td>{{ village.rural_data.illiterates_males}}</td>
+                 <td>{{ village.rural_data.illiterates_females}}</td>
+              </tr>
+              <tr>
+                <th>8</th>
+                 <th>Total Workers Persons</th>
+                 <td>{{ village.rural_data.total_workers_persons}}</td>
+                 <td>{{ village.rural_data.total_workers_males}}</td>
+                 <td>{{ village.rural_data.total_workers_females}}</td>
+              </tr>
+              <tr>
+                <th>9</th>
+                 <th>Main Workers Persons</th>
+                 <td>{{ village.rural_data.main_workers_persons}}</td>
+                 <td>{{ village.rural_data.main_workers_males}}</td>
+                 <td>{{ village.rural_data.main_workers_females}}</td>
+              </tr>
+              <tr>
+                <th>10</th>
+                 <th>Workers Culti Persons</th>
+                 <td>{{ village.rural_data.workers_culti_persons}}</td>
+                 <td>{{ village.rural_data.workers_culti_males}}</td>
+                 <td>{{ village.rural_data.workers_culti_females}}</td>
+              </tr>
+              <tr>
+                <th>11</th>
+                 <th>Main Workers - Agricultural Labourers</th>
+                 <td>{{ village.rural_data.main_workers_agri_labourers_persons}}</td>
+                 <td>{{ village.rural_data.main_workers_agri_labourers_males}}</td>
+                 <td>{{ village.rural_data.main_workers_agri_labourers_females}}</td>
+              </tr>
+              <tr>
+                <th>12</th>
+                 <th>Main Workers - Workers in Household Industries</th>
+                 <td>{{ village.rural_data.main_workers_household_industries_persons}}</td>
+                 <td>{{ village.rural_data.main_workers_household_industries_males}}</td>
+                 <td>{{ village.rural_data.main_workers_household_industries_females}}</td>
+              </tr>
+              <tr>
+                <th>13</th>
+                 <th>Main Workers - Other Workers</th>
+                 <td>{{ village.rural_data.main_workers_other_workers_persons}}</td>
+                 <td>{{ village.rural_data.main_workers_other_workers_males}}</td>
+                 <td>{{ village.rural_data.main_workers_other_workers_females}}</td>
+              </tr>
+              <tr>
+                <th>14</th>
+                 <th>Marginal Workers</th>
+                 <td>{{ village.rural_data.marginal_workers_persons}}</td>
+                 <td>{{ village.rural_data.marginal_workers_males}}</td>
+                 <td>{{ village.rural_data.marginal_workers_females}}</td>
+              </tr>
+              <tr>
+                <th>15</th>
+                 <th>Marginal Workers - Cultivators</th>
+                 <td>{{ village.rural_data.marginal_cultivators_persons}}</td>
+                 <td>{{ village.rural_data.marginal_cultivators_males}}</td>
+                 <td>{{ village.rural_data.marginal_cultivators_females}}</td>
+              </tr>
+              <tr>
+                <th>16</th>
+                 <th>Marginal Workers - Agricultural Labourers</th>
+                 <td>{{ village.rural_data.marginal_agri_labourers_persons}}</td>
+                 <td>{{ village.rural_data.marginal_agri_labourers_males}}</td>
+                 <td>{{ village.rural_data.marginal_agri_labourers_females}}</td>
+              </tr>
+              <tr>
+                <th>17</th>
+                 <th>Marginal Workers - Workers in Household Industries</th>
+                 <td>{{ village.rural_data.marginal_workers_household_industries_persons}}</td>
+                 <td>{{ village.rural_data.marginal_workers_household_industries_males}}</td>
+                 <td>{{ village.rural_data.marginal_workers_household_industries_females}}</td>
+              </tr>
+              <tr>
+                <th>18</th>
+                 <th>Marginal Workers - Other Workers</th>
+                 <td>{{ village.rural_data.marginal_workers_other_workers_persons}}</td>
+                 <td>{{ village.rural_data.marginal_workers_other_workers_males}}</td>
+                 <td>{{ village.rural_data.marginal_workers_other_workers_females}}</td>
+              </tr>
+              <tr>
+                <th>19</th>
+                 <th>Marginal Workers - Those worked for 3 months or more and less than 6 months</th>
+                 <td>{{ village.rural_data.marginal_workers_3_to_6_months_persons}}</td>
+                 <td>{{ village.rural_data.marginal_workers_3_to_6_months_males}}</td>
+                 <td>{{ village.rural_data.marginal_workers_3_to_6_months_females}}</td>
+              </tr>
+              <tr>
+                <th>20</th>
+                 <th>Marginal Workers - Cultivators - Those worked for 3 months or more and less than 6 months</th>
+                 <td>{{ village.rural_data.marginal_cultivators_persons_3_to_6_months}}</td>
+                 <td>{{ village.rural_data.marginal_cultivators_males_3_to_6_months}}</td>
+                 <td>{{ village.rural_data.marginal_cultivators_females_3_to_6_months}}</td>
+              </tr>
+              <tr>
+                <th>21</th>
+                 <th>Marginal Workers - Agricultural Labourers - Those worked for 3 months or more and less than 6 months</th>
+                 <td>{{ village.rural_data.marginal_agri_labourers_persons_3_to_6_months}}</td>
+                 <td>{{ village.rural_data.marginal_agri_labourers_males_3_to_6_months}}</td>
+                 <td>{{ village.rural_data.marginal_agri_labourers_females_3_to_6_months}}</td>
+              </tr>
+              <tr>
+                <th>22</th>
+                 <th>Marginal Workers - Workers in Household Industries - Those worked for 3 months or more and less than 6 months</th>
+                 <td>{{ village.rural_data.marginal_workers_household_industries_persons_3_to_6_months}}</td>
+                 <td>{{ village.rural_data.marginal_workers_household_industries_males_3_to_6_months}}</td>
+                 <td>{{ village.rural_data.marginal_workers_household_industries_females_3_to_6_months}}</td>
+              </tr>
+              <tr>
+                <th>23</th>
+                 <th>Marginal Workers - Other Workers - Those worked for 3 months or more and less than 6 months</th>
+                 <td>{{ village.rural_data.marginal_other_workers_males_3_to_6_months}}</td>
+                 <td>{{ village.rural_data.marginal_workers_household_industries_males_3_to_6_months}}</td>
+                 <td>{{ village.rural_data.marginal_other_workers_females_3_to_6_months}}</td>
+              </tr>
+              <tr>
+                <th>24</th>
+                 <th>Marginal Workers - Those worked for less than 3 months</th>
+                 <td>{{ village.rural_data.marginal_workers_less_than_3_months_persons}}</td>
+                 <td>{{ village.rural_data.marginal_workers_less_than_3_months_males}}</td>
+                 <td>{{ village.rural_data.marginal_workers_less_than_3_months_females}}</td>
+              </tr>
+              <tr>
+                <th>25</th>
+                 <th>Marginal Workers - Cultivators - Those worked for less than 3 months</th>
+                 <td>{{ village.rural_data.marginal_cultivators_persons_less_than_3_months}}</td>
+                 <td>{{ village.rural_data.marginal_cultivators_males_less_than_3_months}}</td>
+                 <td>{{ village.rural_data.marginal_cultivators_females_less_than_3_months}}</td>
+              </tr>
+              <tr>
+                <th>26</th>
+                 <th>Marginal Workers - Agricultural Labourers - Those worked for less than 3 months</th>
+                 <td>{{ village.rural_data.marginal_agri_labourers_persons_less_than_3_months}}</td>
+                 <td>{{ village.rural_data.marginal_agri_labourers_males_less_than_3_months}}</td>
+                 <td>{{ village.rural_data.marginal_agri_labourers_females_less_than_3_months}}</td>
+              </tr>
+              <tr>
+                <th>27</th>
+                 <th>Marginal Workers - Workers in Household Industries - Those worked for less than 3 months</th>
+                 <td>{{ village.rural_data.marginal_workers_household_industries_persons_less_than_3_months}}</td>
+                 <td>{{ village.rural_data.marginal_workers_household_industries_males_less_than_3_months}}</td>
+                 <td>{{ village.rural_data.marginal_workers_household_industries_females_less_than_3_months}}</td>
+              </tr>
+              <tr>
+                <th>28</th>
+                 <th>Marginal Workers - Other Workers - Those worked for less than 3 months</th>
+                 <td>{{ village.rural_data.marginal_other_workers_persons_less_than_3_months}}</td>
+                 <td>{{ village.rural_data.marginal_other_workers_males_less_than_3_months}}</td>
+                 <td>{{ village.rural_data.marginal_other_workers_females_less_than_3_months}}</td>
+              </tr>
+              <tr>
+                <th>29</th>
+                 <th>Non-Workers</th>
+                 <td>{{ village.rural_data.non_workers_persons}}</td>
+                 <td>{{ village.rural_data.non_workers_males}}</td>
+                 <td>{{ village.rural_data.non_workers_females}}</td>
+              </tr>
+            </tbody>
+          </table>
+          {% else %}
+          <p>No Village Information are available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </section>
+
     <section>
         <div class="card me-3">
             <div class="table-responsive">

@@ -61,6 +61,9 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">District Name</th>
+                <th scope="col">Population(Total)</th>
+                <th scope="col">Population(Rural)</th>
+                <th scope="col">Population(Urban)</th>
               </tr>
             </thead>
             <tbody> 
@@ -69,6 +72,9 @@
               <tr>
                 <th scope="row">{{district.id}}</th>
                 <td><a href="/census/districts/{{ district.id }}/">{{ district.name }}</a></td>
+                <td>{{ district.data.total_popul_persons}}</td>
+                <td>{{ district.rural_data.total_popul_persons}}</td>
+                <td>{{ district.urban_data.total_popul_persons}}</td>
               </tr>
               {% endfor %}
             </tbody>
