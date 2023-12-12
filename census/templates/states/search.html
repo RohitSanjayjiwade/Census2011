@@ -51,53 +51,63 @@
         </div>
       </nav>
 
-      <section>
-        <h1 class="h-primary">Village List</h1><br>
-        <div class="class="card me-3>
-           <div class="table-responsive">
-          {% if village_data %}
-           <h1>** {{pincode_value}} **</h1>
-        
-        <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Village Name</th>
-                <th scope="col">Pincode</th>
-                <th scope="col">Village Type</th>
-                <th scope="col">Delivery Status</th>
-                <th scope="col">Division Name</th>
-                <th scope="col">Region Name</th>
-                <th scope="col">Circle Name</th>
-                <th scope="col">Telephone</th>
-                <th scope="col">RelatedSubOffice</th>
-                <th scope="col">RelatedHeadOffice</th>
-              </tr>
-            </thead>
-            <tbody> 
+      <div class="container m-5">
+        <h1 class="h-primary d-flex justify-content-center">Welcome</h1>
+        <!-- Information Above Table -->
+        <div class="row mb-3">
+            <div class="col">
+                <!-- Add your information here -->
+                <p>Your information goes here.</p>
+            </div>
+        </div>
 
-              {% for village in village_data %}
-              <tr>
-                <th scope="row">{{village.id}}</th>
-                <td>{{ village.name }}</td>
-                <td>{{village.pincode}}</td>
-                <td>{{village.villageType}}</td>
-                <td>{{village.deliveryStatus}}</td>
-                <td>{{village.divisionName}}</td>
-                <td>{{village.regionName}}</td>
-                <td>{{village.circleName}}</td>
-                <td>{{village.telephone}}</td>
-                <td>{{village.relatedSuboffice}}</td>
-                <td>{{village.relatedHeadoffice}}</td> 
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        {% else %}
-        <p>No Information are available.</p>
-        {% endif %}
+      <section class="container my-5">
+        <h1 class="h-primary px-5">Village List</h1><br>
+           {% if village_data %}
+           <h1>** {{pincode_value}} **</h1>
+        <div class="card mx-5 mb-5 mt-3">
+           <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Village Name</th>
+                    <th scope="col">Pincode</th>
+                    <th scope="col">Village Type</th>
+                    <th scope="col">Delivery Status</th>
+                    <th scope="col">Division Name</th>
+                    <th scope="col">Region Name</th>
+                    <th scope="col">Circle Name</th>
+                    <th scope="col">Telephone</th>
+                    <th scope="col">RelatedSubOffice</th>
+                    <th scope="col">RelatedHeadOffice</th>
+                  </tr>
+                </thead>
+                <tbody> 
+
+                  {% for village in village_data %}
+                  <tr>
+                    <th scope="row">{{village.id}}</th>
+                    <td>{{ village.name }}</td>
+                    <td>{{village.pincode}}</td>
+                    <td>{{village.villageType}}</td>
+                    <td>{{village.deliveryStatus}}</td>
+                    <td>{{village.divisionName}}</td>
+                    <td>{{village.regionName}}</td>
+                    <td>{{village.circleName}}</td>
+                    <td>{{village.telephone}}</td>
+                    <td>{{village.relatedSuboffice}}</td>
+                    <td>{{village.relatedHeadoffice}}</td> 
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
       </div>
     </div>
+    {% else %}
+    <p>No Information are available.</p>
+    {% endif %}
     </section>
+  </div>
 </body>
 </html>

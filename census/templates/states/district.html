@@ -49,42 +49,53 @@
         </div>
       </nav>
 
-      <section>
-      <div class="card me-3">
-        <div class="table-responsive">
-          <h1 class="h-primary">Districts</h1>
-          <!-- State List -->
-           {% if district_list %}
-           <h1>{{state}}</h1>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">District Name</th>
-                <th scope="col">Population(Total)</th>
-                <th scope="col">Population(Rural)</th>
-                <th scope="col">Population(Urban)</th>
-              </tr>
-            </thead>
-            <tbody> 
-
-              {% for district in district_list %}
-              <tr>
-                <th scope="row">{{district.id}}</th>
-                <td><a href="/census/districts/{{ district.id }}/">{{ district.name }}</a></td>
-                <td>{{ district.data.total_popul_persons}}</td>
-                <td>{{ district.rural_data.total_popul_persons}}</td>
-                <td>{{ district.urban_data.total_popul_persons}}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-          {% else %}
-          <p>No Districts are available.</p>
-          {% endif %}
+      <div class="container m-5">
+        <h1 class="h-primary d-flex justify-content-center">Welcome</h1>
+        <!-- Information Above Table -->
+        <div class="row mb-3">
+            <div class="col">
+                <!-- Add your information here -->
+                <p>Your information goes here.</p>
+            </div>
         </div>
-      </div>
-    </section>
+
+        <section class="container my-5">
+          <h1 class="h-primary px-5">Districts List</h1>
+          <!-- District List -->
+          {% if district_list %}
+          <h1 class="px-5">{{state}}</h1>
+          <div class="card mx-5 mb-5 mt-3">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">District Name</th>
+                    <th scope="col">Population(Total)</th>
+                    <th scope="col">Population(Rural)</th>
+                    <th scope="col">Population(Urban)</th>
+                  </tr>
+                </thead>
+                <tbody> 
+
+                  {% for district in district_list %}
+                  <tr>
+                    <th scope="row">{{district.id}}</th>
+                    <td><a href="/census/districts/{{ district.id }}/">{{ district.name }}</a></td>
+                    <td>{{ district.data.total_popul_persons}}</td>
+                    <td>{{ district.rural_data.total_popul_persons}}</td>
+                    <td>{{ district.urban_data.total_popul_persons}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+              {% else %}
+              <p>No Districts are available.</p>
+              {% endif %}
+            </div>
+          </div>
+      </section>
+  </div>
 </body>
 
 </html>

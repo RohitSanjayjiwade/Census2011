@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    {% load mathfilters %}
     {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -51,18 +52,27 @@
         </div>
     </nav>
 
-    <section>
-      <div class="card me-3 my-5">
+    <div class="container mt-5">
+        <!-- Information Above Table -->
+        <div class="row mb-3">
+            <div class="col">
+                <!-- Add your information here -->
+                <p>Your information goes here.</p>
+            </div>
+        </div>
+
+    <section class="container mt-5">
+       <!-- State List -->
+       {% if city %}
+       <h1 class="px-5">{{city}} Total Population Data</h1>
+      <div class="card mx-5 mb-5 mt-3">
         <div class="table-responsive">
-          <!-- State List -->
-           {% if city %}
-           <h1>{{city}} Total Population Data</h1>
           <table class="table table-hover">
             <thead>
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">Description</th>
-                <th scope="col">Person</th>
+                <th scope="col">Total</th>
                 <th scope="col">Male</th>
                 <th scope="col">Female</th>
               </tr>
@@ -70,7 +80,10 @@
             <tbody> 
               <tr>
                 <th>1</th>
-                <th>Number Of Houshold  ______________________________      {{ city.data.no_of_houshold}}</th>
+                <th>Number Of Houshold</th>
+                <td>{{ city.data.no_of_houshold}}</td>
+                <td>-</td>
+                <td>-</td>
               </tr>
               <tr>
                 <th>2</th>
@@ -81,7 +94,7 @@
               </tr>
               <tr>
                 <th>3</th>
-                 <th>Populaton in Age</th>
+                 <th>Population in age gourp 0-6 years</th>
                  <td>{{ city.data.popul_in_agePersons}}</td>
                  <td>{{ city.data.popul_in_ageMales}}</td>
                  <td>{{ city.data.popul_in_ageFemales}}</td>
@@ -102,35 +115,35 @@
               </tr>
               <tr>
                 <th>6</th>
-                 <th>Literates Persons</th>
-                 <td>{{ city.data.literates_persons}}</td>
-                 <td>{{ city.data.literates_males}}</td>
-                 <td>{{ city.data.literates_females}}</td>
+                 <th>Literacy</th>
+                 <td>{{ city.data.literates_persons|mul:100|div:city.data.total_popul_persons|floatformat:2}} %</td>
+                 <td>{{ city.data.literates_males|mul:100|div:city.data.total_popul_males|floatformat:2}} %</td>
+                 <td>{{ city.data.literates_females|mul:100|div:city.data.total_popul_females|floatformat:2}} %</td>
               </tr>
               <tr>
                 <th>7</th>
-                 <th>Illiterates Persons</th>
-                 <td>{{ city.data.literates_persons}}</td>
-                 <td>{{ city.data.illiterates_males}}</td>
-                 <td>{{ city.data.illiterates_females}}</td>
+                 <th>Illiteracy</th>
+                 <td>{{ city.data.illiterates_persons|mul:100|div:city.data.total_popul_persons|floatformat:2}} %</td>
+                 <td>{{ city.data.illiterates_males|mul:100|div:city.data.total_popul_males|floatformat:2}} %</td>
+                 <td>{{ city.data.illiterates_females|mul:100|div:city.data.total_popul_females|floatformat:2}} %</td>
               </tr>
               <tr>
                 <th>8</th>
-                 <th>Total Workers Persons</th>
+                 <th>Total Workers</th>
                  <td>{{ city.data.total_workers_persons}}</td>
                  <td>{{ city.data.total_workers_males}}</td>
                  <td>{{ city.data.total_workers_females}}</td>
               </tr>
               <tr>
                 <th>9</th>
-                 <th>Main Workers Persons</th>
+                 <th>Main Workers</th>
                  <td>{{ city.data.main_workers_persons}}</td>
                  <td>{{ city.data.main_workers_males}}</td>
                  <td>{{ city.data.main_workers_females}}</td>
               </tr>
               <tr>
                 <th>10</th>
-                 <th>Workers Culti Persons</th>
+                 <th>Main Workers - Cultivators</th>
                  <td>{{ city.data.workers_culti_persons}}</td>
                  <td>{{ city.data.workers_culti_males}}</td>
                  <td>{{ city.data.workers_culti_females}}</td>
@@ -270,20 +283,20 @@
               </tr>
             </tbody>
           </table>
-          {% else %}
-          <p>No Cities Information are available.</p>
-          {% endif %}
         </div>
       </div>
+      {% else %}
+      <p>No Cities Information are available.</p>
+      {% endif %}
     </section>
 
-    <section>
-        <div class="card mx-5 my-5">
-            <h1>Villages List</h1>
+    <div class="container mt-5">
+      <!-- Villages List -->
+      {% if city %}
+      <h3 class="px-5">{{city}}</h3>
+      <h3 class="px-5">Villages List</h3>
+        <div class="card mx-5 mb-5 mt-3">
           <div class="table-responsive">
-            <!-- State List -->
-             {% if city %}
-             <h2>{{city}}</h2>
             <table class="table table-hover">
               <thead>
                 <tr>
@@ -305,12 +318,13 @@
                 {% endfor %}
               </tbody>
             </table>
-            {% else %}
-            <p>No Cities are available.</p>
-            {% endif %}
           </div>
         </div>
-      </section>
+        {% else %}
+        <p>No Cities are available.</p>
+        {% endif %}
+      </div>
+    </div>
 </body>
 
 </html>

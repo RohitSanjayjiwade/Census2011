@@ -51,12 +51,21 @@
             </div>
         </div>
     </nav>
-     <section>
-        <div class="card me-3">
+
+    <div class="container my-5">
+        <!-- Information Above Table -->
+        <div class="row mb-3">
+            <div class="col">
+                <!-- Add your information here -->
+                <p>Your information goes here.</p>
+            </div>
+        </div>
+     <section class="container mt-5">
+        <h1 class="h-primary px-5">Cities List</h1>
+        <!-- State List -->
+        {% if cities_list %}
+        <div class="card mx-5 mb-5 mt-3">
           <div class="table-responsive">
-            <h1 class="h-primary">Cities</h1>
-            <!-- State List -->
-             {% if cities_list %}
             <table class="table table-hover">
               <thead>
                 <tr>
@@ -80,12 +89,12 @@
                 {% endfor %}
               </tbody>
             </table>
-            {% else %}
-            <p>No Cities are available.</p>
-            {% endif %}
           </div>
         </div>
+        {% else %}
+        <p>No Cities are available.</p>
+        {% endif %}
       </section>
+  </div>
 </body>
-
 </html>

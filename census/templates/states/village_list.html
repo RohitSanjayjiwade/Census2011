@@ -51,39 +51,50 @@
             </div>
         </div>
     </nav>
-    <section>
-        <div class="card me-3">
-          <div class="table-responsive">
+
+    <div class="container m-5">
+        <!-- Information Above Table -->
+        <div class="row mb-3">
+            <div class="col">
+                <!-- Add your information here -->
+                <p>Your information goes here.</p>
+            </div>
+        </div>
+
+        <section class="container my-5">
             <h1 class="h-primary d-flex justify-content-center">Village-List</h1>
             <!-- State List -->
-             {% if villages_list %}
-            <table class="table table-hover">
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Village Name</th>
-                  <th scope="col">Pincode</th>
-                  <th scope="col">Population(Total)</th>
-                </tr>
-              </thead>
-              <tbody> 
+            {% if villages_list %}
+            <div class="card mx-5 mb-5 mt-3">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Village Name</th>
+                      <th scope="col">Pincode</th>
+                      <th scope="col">Population(Total)</th>
+                    </tr>
+                  </thead>
+                  <tbody> 
 
-                {% for village in villages_list %}
-                <tr>
-                  <th scope="row">{{village.id}}</th>
-                  <td><a href="/census/village/{{ village.id }}">{{ village.name }}</a></td>
-                  <td><a href="/{{village.pincode}}">{{ village.pincode }}</a></td>
-                  <td>{{ village.rural_data.total_popul_persons}}</td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+                    {% for village in villages_list %}
+                    <tr>
+                      <th scope="row">{{village.id}}</th>
+                      <td><a href="/census/village/{{ village.id }}">{{ village.name }}</a></td>
+                      <td><a href="/{{village.pincode}}">{{ village.pincode }}</a></td>
+                      <td>{{ village.rural_data.total_popul_persons}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
             {% else %}
             <p>No Cities are available.</p>
             {% endif %}
-          </div>
-        </div>
-      </section>
+          </section>
+    </div>
 </body>
 
 </html>
