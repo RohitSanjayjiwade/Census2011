@@ -36,7 +36,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/census/villages/">Village</a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link" href="{% url 'search' %}">SearchByPincode</a>
               </li>
               </ul>
@@ -44,18 +44,17 @@
                 {% csrf_token %}
               <input class="form-control me-2"  name="pincode" type="text" placeholder="Enter Pincode" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            </form> -->
           </div>
         </div>
       </nav>
 
-      <div class="container m-5">
-        <h1 class="h-primary d-flex justify-content-center">Welcome</h1>
+      <div class="container mt-5">
         <!-- Information Above Table -->
         <div class="row mb-3">
             <div class="col">
                 <!-- Add your information here -->
-                <p>Your information goes here.</p>
+                <!-- <p>Your information goes here.</p> -->
             </div>
         </div>
 
@@ -71,9 +70,9 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">District Name</th>
-                    <th scope="col">Population(Total)</th>
-                    <th scope="col">Population(Rural)</th>
-                    <th scope="col">Population(Urban)</th>
+                    <th scope="col" class="text-center">Population(Total)</th>
+                    <th scope="col" class="text-center">Population(Rural)</th>
+                    <th scope="col" class="text-center">Population(Urban)</th>
                   </tr>
                 </thead>
                 <tbody> 
@@ -81,19 +80,40 @@
                   {% for district in district_list %}
                   <tr>
                     <th scope="row">{{district.id}}</th>
-                    <td><a href="/census/districts/{{ district.id }}/">{{ district.name }}</a></td>
-                    <td>{{ district.data.total_popul_persons}}</td>
-                    <td>{{ district.rural_data.total_popul_persons}}</td>
-                    <td>{{ district.urban_data.total_popul_persons}}</td>
+                    <td><a href="/census/districts/{{ district.slug }}/">{{ district.name }}</a></td>
+                    <td class="text-center">{{ district.data.total_popul_persons}}</td>
+                    <td class="text-center">{{ district.rural_data.total_popul_persons}}</td>
+                    <td class="text-center">{{ district.urban_data.total_popul_persons}}</td>
                   </tr>
                   {% endfor %}
                 </tbody>
               </table>
-              {% else %}
-              <p>No Districts are available.</p>
-              {% endif %}
+
+              <!-- Pagination -->
+
+                <div class="pagination"> 
+                    <span class="step-links">
+                    {% if villages_list.has_previous %}
+                        <a href="?page=1"><button type="button" class="btn btn-dark  btn-sm">&laquo; first</button></a>
+                        <a href="?page={{ villages_list.previous_page_number }}"><button type="button" class="btn btn-primary  btn-sm">previous</button></a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ villages_list.number }} of {{ villages_list.paginator.num_pages }}.
+                    </span>
+
+                    {% if villages_list.has_next %}
+                        <a href="?page={{ villages_list.next_page_number }}"><button type="button" class="btn btn-primary  btn-sm">next</button></a>
+                        <a href="?page={{ villages_list.paginator.num_pages }}"><button type="button" class="btn btn-dark  btn-sm">last &raquo;</button></a>
+                    {% endif %}
+                    </span>
+                 </div>
+                 <!-- Pagination End -->
             </div>
           </div>
+          {% else %}
+          <p>No Districts are available.</p>
+          {% endif %}
       </section>
   </div>
 </body>

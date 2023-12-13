@@ -40,7 +40,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/census/villages">Village</a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link" href="{% url 'search' %}">SearchByPincode</a>
               </li>
               </ul>
@@ -48,7 +48,7 @@
                 {% csrf_token %}
               <input class="form-control me-2"  name="pincode" type="text" placeholder="Enter Pincode" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            </form> -->
           </div>
         </div>
       </nav>
@@ -58,7 +58,7 @@
         <div class="row mb-3">
             <div class="col">
                 <!-- Add your information here -->
-                <p>Your information goes here.</p>
+                <!-- <p>Your information goes here.</p> -->
             </div>
         </div>
 
@@ -72,215 +72,215 @@
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Description</th>
-                <th scope="col">Total</th>
-                <th scope="col">Male</th>
-                <th scope="col">Female</th>
+                <th scope="col" class="px-3">Description</th>
+                <th scope="col" class="text-center">Total</th>
+                <th scope="col" class="text-center">Male</th>
+                <th scope="col" class="text-center">Female</th>
               </tr>
             </thead>
             <tbody> 
               <tr>
                 <th>1</th>
                 <th>Number Of Houshold</th>
-                <td>{{ state.data.no_of_houshold}}</td>
-                <td>-</td>
-                <td>-</td>
+                <td class="text-center">{{ state.data.no_of_houshold}}</td>
+                <td class="text-center">--</td>
+                <td class="text-center">--</td>
               </tr>
               <tr>
                 <th>2</th>
                  <th>Total Populaton</th>
-                 <td>{{ state.data.total_popul_persons}}</td>
-                 <td>{{ state.data.total_popul_males}}</td>
-                 <td>{{ state.data.total_popul_females}}</td>
+                 <td class="text-center">{{ state.data.total_popul_persons}}</td>
+                 <td class="text-center">{{ state.data.total_popul_males}}</td>
+                 <td class="text-center">{{ state.data.total_popul_females}}</td>
               </tr>
               <tr>
                 <th>3</th>
                  <th>Total Child Population (0-6 Age)</th>
-                 <td>{{ state.data.popul_in_agePersons}}</td>
-                 <td>{{ state.data.popul_in_ageMales}}</td>
-                 <td>{{ state.data.popul_in_ageFemales}}</td>
+                 <td class="text-center">{{ state.data.popul_in_agePersons}}</td>
+                 <td class="text-center">{{ state.data.popul_in_ageMales}}</td>
+                 <td class="text-center">{{ state.data.popul_in_ageFemales}}</td>
               </tr>
               <tr>
                 <th>4</th>
                  <th>Cast Populaton</th>
-                 <td>{{ state.data.caste_popul_persons}}</td>
-                 <td>{{ state.data.caste_popul_males}}</td>
-                 <td>{{ state.data.caste_popul_females}}</td>
+                 <td class="text-center">{{ state.data.caste_popul_persons}}</td>
+                 <td class="text-center">{{ state.data.caste_popul_males}}</td>
+                 <td class="text-center">{{ state.data.caste_popul_females}}</td>
               </tr>
               <tr>
                 <th>5</th>
                  <th>Tribe Populaton</th>
-                 <td>{{ state.data.tribe_popul_persons}}</td>
-                 <td>{{ state.data.tribe_popul_males}}</td>
-                 <td>{{ state.data.tribe_popul_females}}</td>
+                 <td class="text-center">{{ state.data.tribe_popul_persons}}</td>
+                 <td class="text-center">{{ state.data.tribe_popul_males}}</td>
+                 <td class="text-center">{{ state.data.tribe_popul_females}}</td>
               </tr>
               <tr>
                 <th>6</th>
                  <th>Literacy</th>
-                 <td>{{ state.data.literates_persons|mul:100|div:state.data.total_popul_persons|floatformat:2}} %</td>
-                 <td>{{ state.data.literates_males|mul:100|div:state.data.total_popul_males|floatformat:2}} %</td>
-                 <td>{{ state.data.literates_females|mul:100|div:state.data.total_popul_females|floatformat:2}} %</td>
+                 <td class="text-center">{{ state.data.literates_persons|mul:100|div:state.data.total_popul_persons|floatformat:2}} %</td>
+                 <td class="text-center">{{ state.data.literates_males|mul:100|div:state.data.total_popul_males|floatformat:2}} %</td>
+                 <td class="text-center">{{ state.data.literates_females|mul:100|div:state.data.total_popul_females|floatformat:2}} %</td>
               </tr>
               <tr>
                 <th>7</th>
                  <th>Illiteracy</th>
-                 <td>{{ state.data.illiterates_persons|mul:100|div:state.data.total_popul_persons|floatformat:2}} %</td>
-                 <td>{{ state.data.illiterates_males|mul:100|div:state.data.total_popul_males|floatformat:2}} %</td>
-                 <td>{{ state.data.illiterates_females|mul:100|div:state.data.total_popul_females|floatformat:2}} %</td>
+                 <td class="text-center">{{ state.data.illiterates_persons|mul:100|div:state.data.total_popul_persons|floatformat:2}} %</td>
+                 <td class="text-center">{{ state.data.illiterates_males|mul:100|div:state.data.total_popul_males|floatformat:2}} %</td>
+                 <td class="text-center">{{ state.data.illiterates_females|mul:100|div:state.data.total_popul_females|floatformat:2}} %</td>
               </tr>
               <tr>
                 <th>8</th>
                  <th>Total Workers</th>
-                 <td>{{ state.data.total_workers_persons}}</td>
-                 <td>{{ state.data.total_workers_males}}</td>
-                 <td>{{ state.data.total_workers_females}}</td>
+                 <td class="text-center">{{ state.data.total_workers_persons}}</td>
+                 <td class="text-center">{{ state.data.total_workers_males}}</td>
+                 <td class="text-center">{{ state.data.total_workers_females}}</td>
               </tr>
               <tr>
                 <th>9</th>
                  <th>Main Workers</th>
-                 <td>{{ state.data.main_workers_persons}}</td>
-                 <td>{{ state.data.main_workers_males}}</td>
-                 <td>{{ state.data.main_workers_females}}</td>
+                 <td class="text-center">{{ state.data.main_workers_persons}}</td>
+                 <td class="text-center">{{ state.data.main_workers_males}}</td>
+                 <td class="text-center">{{ state.data.main_workers_females}}</td>
               </tr>
               <tr>
                 <th>10</th>
                  <th>Main Workers - Cultivators</th>
-                 <td>{{ state.data.workers_culti_persons}}</td>
-                 <td>{{ state.data.workers_culti_males}}</td>
-                 <td>{{ state.data.workers_culti_females}}</td>
+                 <td class="text-center">{{ state.data.workers_culti_persons}}</td>
+                 <td class="text-center">{{ state.data.workers_culti_males}}</td>
+                 <td class="text-center">{{ state.data.workers_culti_females}}</td>
               </tr>
               <tr>
                 <th>11</th>
                  <th>Main Workers - Agricultural Labourers</th>
-                 <td>{{ state.data.main_workers_agri_labourers_persons}}</td>
-                 <td>{{ state.data.main_workers_agri_labourers_males}}</td>
-                 <td>{{ state.data.main_workers_agri_labourers_females}}</td>
+                 <td class="text-center">{{ state.data.main_workers_agri_labourers_persons}}</td>
+                 <td class="text-center">{{ state.data.main_workers_agri_labourers_males}}</td>
+                 <td class="text-center">{{ state.data.main_workers_agri_labourers_females}}</td>
               </tr>
               <tr>
                 <th>12</th>
                  <th>Main Workers - Workers in Household Industries</th>
-                 <td>{{ state.data.main_workers_household_industries_persons}}</td>
-                 <td>{{ state.data.main_workers_household_industries_males}}</td>
-                 <td>{{ state.data.main_workers_household_industries_females}}</td>
+                 <td class="text-center">{{ state.data.main_workers_household_industries_persons}}</td>
+                 <td class="text-center">{{ state.data.main_workers_household_industries_males}}</td>
+                 <td class="text-center">{{ state.data.main_workers_household_industries_females}}</td>
               </tr>
               <tr>
                 <th>13</th>
                  <th>Main Workers - Other Workers</th>
-                 <td>{{ state.data.main_workers_other_workers_persons}}</td>
-                 <td>{{ state.data.main_workers_other_workers_males}}</td>
-                 <td>{{ state.data.main_workers_other_workers_females}}</td>
+                 <td class="text-center">{{ state.data.main_workers_other_workers_persons}}</td>
+                 <td class="text-center">{{ state.data.main_workers_other_workers_males}}</td>
+                 <td class="text-center">{{ state.data.main_workers_other_workers_females}}</td>
               </tr>
               <tr>
                 <th>14</th>
                  <th>Marginal Workers</th>
-                 <td>{{ state.data.marginal_workers_persons}}</td>
-                 <td>{{ state.data.marginal_workers_males}}</td>
-                 <td>{{ state.data.marginal_workers_females}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_persons}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_males}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_females}}</td>
               </tr>
               <tr>
                 <th>15</th>
                  <th>Marginal Workers - Cultivators</th>
-                 <td>{{ state.data.marginal_cultivators_persons}}</td>
-                 <td>{{ state.data.marginal_cultivators_males}}</td>
-                 <td>{{ state.data.marginal_cultivators_females}}</td>
+                 <td class="text-center">{{ state.data.marginal_cultivators_persons}}</td>
+                 <td class="text-center">{{ state.data.marginal_cultivators_males}}</td>
+                 <td class="text-center">{{ state.data.marginal_cultivators_females}}</td>
               </tr>
               <tr>
                 <th>16</th>
                  <th>Marginal Workers - Agricultural Labourers</th>
-                 <td>{{ state.data.marginal_agri_labourers_persons}}</td>
-                 <td>{{ state.data.marginal_agri_labourers_males}}</td>
-                 <td>{{ state.data.marginal_agri_labourers_females}}</td>
+                 <td class="text-center">{{ state.data.marginal_agri_labourers_persons}}</td>
+                 <td class="text-center">{{ state.data.marginal_agri_labourers_males}}</td>
+                 <td class="text-center">{{ state.data.marginal_agri_labourers_females}}</td>
               </tr>
               <tr>
                 <th>17</th>
                  <th>Marginal Workers - Workers in Household Industries</th>
-                 <td>{{ state.data.marginal_workers_household_industries_persons}}</td>
-                 <td>{{ state.data.marginal_workers_household_industries_males}}</td>
-                 <td>{{ state.data.marginal_workers_household_industries_females}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_household_industries_persons}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_household_industries_males}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_household_industries_females}}</td>
               </tr>
               <tr>
                 <th>18</th>
                  <th>Marginal Workers - Other Workers</th>
-                 <td>{{ state.data.marginal_workers_other_workers_persons}}</td>
-                 <td>{{ state.data.marginal_workers_other_workers_males}}</td>
-                 <td>{{ state.data.marginal_workers_other_workers_females}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_other_workers_persons}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_other_workers_males}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_other_workers_females}}</td>
               </tr>
               <tr>
                 <th>19</th>
                  <th>Marginal Workers - Those worked for 3 months or more and less than 6 months</th>
-                 <td>{{ state.data.marginal_workers_3_to_6_months_persons}}</td>
-                 <td>{{ state.data.marginal_workers_3_to_6_months_males}}</td>
-                 <td>{{ state.data.marginal_workers_3_to_6_months_females}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_3_to_6_months_persons}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_3_to_6_months_males}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_3_to_6_months_females}}</td>
               </tr>
               <tr>
                 <th>20</th>
                  <th>Marginal Workers - Cultivators - Those worked for 3 months or more and less than 6 months</th>
-                 <td>{{ state.data.marginal_cultivators_persons_3_to_6_months}}</td>
-                 <td>{{ state.data.marginal_cultivators_males_3_to_6_months}}</td>
-                 <td>{{ state.data.marginal_cultivators_females_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_cultivators_persons_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_cultivators_males_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_cultivators_females_3_to_6_months}}</td>
               </tr>
               <tr>
                 <th>21</th>
                  <th>Marginal Workers - Agricultural Labourers - Those worked for 3 months or more and less than 6 months</th>
-                 <td>{{ state.data.marginal_agri_labourers_persons_3_to_6_months}}</td>
-                 <td>{{ state.data.marginal_agri_labourers_males_3_to_6_months}}</td>
-                 <td>{{ state.data.marginal_agri_labourers_females_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_agri_labourers_persons_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_agri_labourers_males_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_agri_labourers_females_3_to_6_months}}</td>
               </tr>
               <tr>
                 <th>22</th>
                  <th>Marginal Workers - Workers in Household Industries - Those worked for 3 months or more and less than 6 months</th>
-                 <td>{{ state.data.marginal_workers_household_industries_persons_3_to_6_months}}</td>
-                 <td>{{ state.data.marginal_workers_household_industries_males_3_to_6_months}}</td>
-                 <td>{{ state.data.marginal_workers_household_industries_females_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_household_industries_persons_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_household_industries_males_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_household_industries_females_3_to_6_months}}</td>
               </tr>
               <tr>
                 <th>23</th>
                  <th>Marginal Workers - Other Workers - Those worked for 3 months or more and less than 6 months</th>
-                 <td>{{ state.data.marginal_other_workers_males_3_to_6_months}}</td>
-                 <td>{{ state.data.marginal_workers_household_industries_males_3_to_6_months}}</td>
-                 <td>{{ state.data.marginal_other_workers_females_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_other_workers_males_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_household_industries_males_3_to_6_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_other_workers_females_3_to_6_months}}</td>
               </tr>
               <tr>
                 <th>24</th>
                  <th>Marginal Workers - Those worked for less than 3 months</th>
-                 <td>{{ state.data.marginal_workers_less_than_3_months_persons}}</td>
-                 <td>{{ state.data.marginal_workers_less_than_3_months_males}}</td>
-                 <td>{{ state.data.marginal_workers_less_than_3_months_females}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_less_than_3_months_persons}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_less_than_3_months_males}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_less_than_3_months_females}}</td>
               </tr>
               <tr>
                 <th>25</th>
                  <th>Marginal Workers - Cultivators - Those worked for less than 3 months</th>
-                 <td>{{ state.data.marginal_cultivators_persons_less_than_3_months}}</td>
-                 <td>{{ state.data.marginal_cultivators_males_less_than_3_months}}</td>
-                 <td>{{ state.data.marginal_cultivators_females_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_cultivators_persons_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_cultivators_males_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_cultivators_females_less_than_3_months}}</td>
               </tr>
               <tr>
                 <th>26</th>
                  <th>Marginal Workers - Agricultural Labourers - Those worked for less than 3 months</th>
-                 <td>{{ state.data.marginal_agri_labourers_persons_less_than_3_months}}</td>
-                 <td>{{ state.data.marginal_agri_labourers_males_less_than_3_months}}</td>
-                 <td>{{ state.data.marginal_agri_labourers_females_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_agri_labourers_persons_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_agri_labourers_males_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_agri_labourers_females_less_than_3_months}}</td>
               </tr>
               <tr>
                 <th>27</th>
                  <th>Marginal Workers - Workers in Household Industries - Those worked for less than 3 months</th>
-                 <td>{{ state.data.marginal_workers_household_industries_persons_less_than_3_months}}</td>
-                 <td>{{ state.data.marginal_workers_household_industries_males_less_than_3_months}}</td>
-                 <td>{{ state.data.marginal_workers_household_industries_females_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_household_industries_persons_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_household_industries_males_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_workers_household_industries_females_less_than_3_months}}</td>
               </tr>
               <tr>
                 <th>28</th>
                  <th>Marginal Workers - Other Workers - Those worked for less than 3 months</th>
-                 <td>{{ state.data.marginal_other_workers_persons_less_than_3_months}}</td>
-                 <td>{{ state.data.marginal_other_workers_males_less_than_3_months}}</td>
-                 <td>{{ state.data.marginal_other_workers_females_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_other_workers_persons_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_other_workers_males_less_than_3_months}}</td>
+                 <td class="text-center">{{ state.data.marginal_other_workers_females_less_than_3_months}}</td>
               </tr>
               <tr>
                 <th>29</th>
                  <th>Non-Workers</th>
-                 <td>{{ state.data.non_workers_persons}}</td>
-                 <td>{{ state.data.non_workers_males}}</td>
-                 <td>{{ state.data.non_workers_females}}</td>
+                 <td class="text-center">{{ state.data.non_workers_persons}}</td>
+                 <td class="text-center">{{ state.data.non_workers_males}}</td>
+                 <td class="text-center">{{ state.data.non_workers_females}}</td>
               </tr>
             </tbody>
           </table>
@@ -304,9 +304,9 @@
               <tr>
                 <th scope="col">#</th>
                 <th scope="col">District Name</th>
-                <th scope="col">Population(Total)</th>
-                <th scope="col">Population(Rural)</th>
-                <th scope="col">Population(Urban)</th>
+                <th scope="col" class="text-center">Population(Total)</th>
+                <th scope="col" class="text-center">Population(Rural)</th>
+                <th scope="col" class="text-center">Population(Urban)</th>
               </tr>
             </thead>
             <tbody> 
@@ -314,10 +314,10 @@
               {% for district in state.district_set.all %}
               <tr>
                 <th scope="row">{{district.id}}</th>
-                <td><a href="/census/districts/{{ district.id }}/">{{ district.name }}</a></td>
-                <td>{{ district.data.total_popul_persons}}</td>
-                <td>{{ district.rural_data.total_popul_persons}}</td>
-                <td>{{ district.urban_data.total_popul_persons}}</td>
+                <td><a href="/census/districts/{{ district.slug }}/">{{ district.name }}</a></td>
+                <td class="text-center">{{ district.data.total_popul_persons}}</td>
+                <td class="text-center">{{ district.rural_data.total_popul_persons}}</td>
+                <td class="text-center">{{ district.urban_data.total_popul_persons}}</td>
               </tr>
               {% endfor %}
             </tbody>

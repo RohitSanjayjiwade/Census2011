@@ -39,7 +39,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/census/villages/">Village</a>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                          <a class="nav-link" href="{% url 'search' %}">SearchByPincode</a>
                     </li>
                 </ul>
@@ -47,20 +47,20 @@
                     {% csrf_token %}
                   <input class="form-control me-2"  name="pincode" type="text" placeholder="Enter Pincode" aria-label="Search">
                  <button class="btn btn-outline-success" type="submit">Search</button>
-            </form> 
+            </form>  -->
             </div>
         </div>
     </nav>
 
-    <div class="container my-5">
+    <div class="container mt-5">
         <!-- Information Above Table -->
         <div class="row mb-3">
             <div class="col">
                 <!-- Add your information here -->
-                <p>Your information goes here.</p>
+                <!-- <p>Your information goes here.</p> -->
             </div>
         </div>
-     <section class="container mt-5">
+     <section class="container my-5">
         <h1 class="h-primary px-5">Cities List</h1>
         <!-- State List -->
         {% if cities_list %}
@@ -71,9 +71,9 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">City Name</th>
-                  <th scope="col">Population(Total)</th>
-                  <th scope="col">Population(Rural)</th>
-                  <th scope="col">Population(Urban)</th>
+                  <th scope="col" class="text-center">Population(Total)</th>
+                  <th scope="col" class="text-center">Population(Rural)</th>
+                  <th scope="col" class="text-center">Population(Urban)</th>
                 </tr>
               </thead>
               <tbody> 
@@ -81,14 +81,35 @@
                 {% for cities in cities_list %}
                 <tr>
                   <th scope="row">{{cities.id}}</th>
-                  <td><a href="/census/cities/{{ cities.id }}/">{{cities.name}}</a></td>
-                  <td>{{ cities.data.total_popul_persons}}</td>
-                  <td>{{ cities.rural_data.total_popul_persons}}</td>
-                  <td>{{ cities.urban_data.total_popul_persons}}</td>
+                  <td><a href="/census/cities/{{ cities.slug }}/">{{cities.name}}</a></td>
+                  <td class="text-center">{{ cities.data.total_popul_persons}}</td>
+                  <td class="text-center">{{ cities.rural_data.total_popul_persons}}</td>
+                  <td class="text-center">{{ cities.urban_data.total_popul_persons}}</td>
                 </tr>
                 {% endfor %}
               </tbody>
             </table>
+
+            <!-- Pagination -->
+
+                <div class="pagination"> 
+                    <span class="step-links">
+                    {% if cities_list.has_previous %}
+                        <a href="?page=1"><button type="button" class="btn btn-dark  btn-sm">&laquo; first</button></a>
+                        <a href="?page={{ cities_list.previous_page_number }}"><button type="button" class="btn btn-primary  btn-sm">previous</button></a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ cities_list.number }} of {{ cities_list.paginator.num_pages }}.
+                    </span>
+
+                    {% if cities_list.has_next %}
+                        <a href="?page={{ cities_list.next_page_number }}"><button type="button" class="btn btn-primary  btn-sm">next</button></a>
+                        <a href="?page={{ cities_list.paginator.num_pages }}"><button type="button" class="btn btn-dark  btn-sm">last &raquo;</button></a>
+                    {% endif %}
+                    </span>
+                 </div>
+                 <!-- Pagination End -->
           </div>
         </div>
         {% else %}

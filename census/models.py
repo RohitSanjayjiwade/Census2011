@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.text import slugify
 
 # Create your models here.
 
@@ -155,10 +156,14 @@ class State(models.Model):
     data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='state_data')
     rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='state_rural_data')
     urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='state_urban_data')
-
+    slug = models.SlugField(unique=True, blank=True)
 
     def __str__(self):
         return f"{self.name}"
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(State, self).save(*args, **kwargs)
 
 
 class District(models.Model):
@@ -168,10 +173,15 @@ class District(models.Model):
     data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='district_data')
     rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='district_rural_data')
     urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='district_urban_data')
+    slug = models.SlugField(unique=True, blank=True)
 
 
     def __str__(self):
         return f"{self.name}"
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(f"{self.id}-{self.name}")
+        super(District, self).save(*args, **kwargs)
 
 class City(models.Model):
     name = models.CharField(max_length=30)
@@ -181,9 +191,14 @@ class City(models.Model):
     data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='city_data')
     rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='city_rural_data')
     urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='city_urban_data')
+    slug = models.SlugField(unique=True, blank=True)
 
     def __str__(self):
         return f"{self.name}"
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(f"{self.id}-{self.name}")
+        super(City, self).save(*args, **kwargs)
 
 class Village(models.Model):
     name = models.CharField(max_length=30)
@@ -194,6 +209,7 @@ class Village(models.Model):
     data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='village_data')
     rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='village_rural_data')
     urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='village_urban_data')
+    # slug = models.SlugField(unique=True, blank=True)
     pincode = models.CharField(max_length=6)
     villageType = models.CharField(max_length=6, null=True)
     deliveryStatus = models.TextField(null=True)
@@ -207,4 +223,8 @@ class Village(models.Model):
     def __str__(self):
         # return f"{self.name}{self.pincode}{self.villageType}{self.deliveryStatus}{self.divisionName}{self.regionName}{self.circleName}{self.telephone}{self.relatedSuboffice}{self.relatedHeadoffice}"
         return f"{self.name}"
+
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(f"{self.id}-{self.name}")
+    #     super(Village, self).save(*args, **kwargs)
 

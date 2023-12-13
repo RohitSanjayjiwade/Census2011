@@ -177,6 +177,8 @@ class Command(BaseCommand):
                 )
                 print("saved in state and total")
 
+                state_instance.save()
+
             elif level == 'STATE' and totalRuralUrban == 'Rural':
                 State.objects.update_or_create(
                     name=areaName,
@@ -201,6 +203,8 @@ class Command(BaseCommand):
                     defaults={'data': data_instance, 'state': state_instance}
                 )
                 print("saved in district and total")
+
+                district_instance.save()
 
             elif level == 'DISTRICT' and totalRuralUrban == 'Rural':
                 state_instance = State.objects.get(state_code=stateCode)
@@ -230,6 +234,8 @@ class Command(BaseCommand):
                     defaults={'data': data_instance, 'state': state_instance, 'district': district_instance}
                 )
                 print("saved in city and total")
+
+                city_instance.save()
 
             elif level == 'SUB-DISTRICT' and totalRuralUrban == 'Rural':
                 state_instance = State.objects.get(state_code=stateCode)
@@ -271,6 +277,8 @@ class Command(BaseCommand):
                     }
                 )
                 print("saved in village and total")
+
+                village_instance.save()
 
             elif level == 'VILLAGE' and totalRuralUrban == 'Rural':
                 state_instance = State.objects.get(state_code=stateCode)

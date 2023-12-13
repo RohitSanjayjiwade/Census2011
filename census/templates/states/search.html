@@ -38,7 +38,7 @@
               <li class="nav-item">
                 <a class="nav-link" href="/census/villages/">Village</a>
               </li>
-              <li class="nav-item">
+              <!-- <li class="nav-item">
                 <a class="nav-link" href="{% url 'search' %}">SearchByPincode</a>
               </li>
               </ul>
@@ -46,12 +46,12 @@
                 {% csrf_token %}
               <input class="form-control me-2" name="pincode" type="text" placeholder="Enter 6-digit Pincode" maxlength="6" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            </form> -->
           </div>
         </div>
       </nav>
 
-      <div class="container m-5">
+      <div class="container mt-5">
         <h1 class="h-primary d-flex justify-content-center">Welcome</h1>
         <!-- Information Above Table -->
         <div class="row mb-3">
@@ -72,15 +72,15 @@
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">Village Name</th>
-                    <th scope="col">Pincode</th>
-                    <th scope="col">Village Type</th>
-                    <th scope="col">Delivery Status</th>
-                    <th scope="col">Division Name</th>
-                    <th scope="col">Region Name</th>
-                    <th scope="col">Circle Name</th>
-                    <th scope="col">Telephone</th>
-                    <th scope="col">RelatedSubOffice</th>
-                    <th scope="col">RelatedHeadOffice</th>
+                    <th scope="col" class="text-center">Pincode</th>
+                    <th scope="col" class="text-center">Village Type</th>
+                    <th scope="col" class="text-center">Delivery Status</th>
+                    <th scope="col" class="text-center">Division Name</th>
+                    <th scope="col" class="text-center">Region Name</th>
+                    <th scope="col" class="text-center">Circle Name</th>
+                    <th scope="col" class="text-center">Telephone</th>
+                    <th scope="col" class="text-center">RelatedSubOffice</th>
+                    <th scope="col" class="text-center">RelatedHeadOffice</th>
                   </tr>
                 </thead>
                 <tbody> 
@@ -89,15 +89,15 @@
                   <tr>
                     <th scope="row">{{village.id}}</th>
                     <td>{{ village.name }}</td>
-                    <td>{{village.pincode}}</td>
-                    <td>{{village.villageType}}</td>
-                    <td>{{village.deliveryStatus}}</td>
-                    <td>{{village.divisionName}}</td>
-                    <td>{{village.regionName}}</td>
-                    <td>{{village.circleName}}</td>
-                    <td>{{village.telephone}}</td>
-                    <td>{{village.relatedSuboffice}}</td>
-                    <td>{{village.relatedHeadoffice}}</td> 
+                    <td class="text-center">{{village.pincode}}</td>
+                    <td class="text-center">{{village.villageType}}</td>
+                    <td class="text-center">{{village.deliveryStatus}}</td>
+                    <td class="text-center">{{village.divisionName}}</td>
+                    <td class="text-center">{{village.regionName}}</td>
+                    <td class="text-center">{{village.circleName}}</td>
+                    <td class="text-center">{{village.telephone}}</td>
+                    <td class="text-center">{{village.relatedSuboffice}}</td>
+                    <td class="text-center">{{village.relatedHeadoffice}}</td> 
                   </tr>
                   {% endfor %}
                 </tbody>
