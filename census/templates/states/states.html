@@ -16,28 +16,33 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="navbar-brand" href="#">Population Census</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline">
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-uppercase nav-underline">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="/census/">Home</a>
+                    <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
                 </li>
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="">States</a>
+                <a class="nav-link" aria-current="page" href="{% url 'state_list' %}">States</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/census/districts/">Districts</a>
+                <a class="nav-link" href="{% url 'district' %}">Districts</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/census/cities/">Cities</a>
+                <a class="nav-link" href="{% url 'cities' %}">Cities</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/census/villages">Village</a>
+                <a class="nav-link" href="{% url 'village'%}">Village</a>
               </li>
               <!-- <li class="nav-item">
                 <a class="nav-link" href="{% url 'search' %}">SearchByPincode</a>
@@ -48,6 +53,8 @@
               <input class="form-control me-2"  name="pincode" type="text" placeholder="Enter Pincode" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
+            </ul>
+          </div>
           </div>
         </div>
     </nav>
@@ -82,12 +89,13 @@
 
                                    {% for state in state_list %}
                                 <tr>
-                                    <th scope="row">{{state.id}}</th>
+                                    <th scope="row">{{state.state_code}}</th>
                                     <!-- <td><a href="/census/states/{{ state.id }}/">{{ state.name }}</a></td> -->
                                     <td><a href="{% url 'district_list' slug=state.slug %}">{{ state.name }}</a></td>
-                                    <td class="text-center">{{ state.data.total_popul_persons}}</td>
-                                    <td class="text-center">{{ state.rural_data.total_popul_persons}}</td>
-                                    <td class="text-center">{{ state.urban_data.total_popul_persons}}</td>
+                                    <td class="text-center">{{state.state_years.all.0.data.total_popul_persons}}</td>
+                                    <!-- <td class="text-center">{{ state.data.total_popul_persons}}</td> -->
+                                    <td class="text-center">{{ state.state_years.all.0.rural_data.total_popul_persons}}</td>
+                                    <td class="text-center">{{ state.state_years.all.0.urban_data.total_popul_persons}}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -99,5 +107,9 @@
             {% endif %}
         </section>
     </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

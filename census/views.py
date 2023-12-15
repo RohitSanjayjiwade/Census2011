@@ -9,6 +9,7 @@ def index(request):
 
 def state_list(request):
     state_list = State.objects.all() 
+    print(state_list)
     return render(request, "states/states.html", {"state_list": state_list})
 
 def district_list(request, slug):
@@ -94,8 +95,8 @@ def cities(request):
 
     return render(request, "states/cities_list.html",{"cities_list": paginated_data})
 
-def village_info(request, village_id):
-    village_info = get_object_or_404(Village, pk=village_id)
+def village_info(request, slug):
+    village_info = get_object_or_404(Village, slug=slug)
     return render(request, "states/villageInfo.html",{"village": village_info})
 
 def get_location(request):

@@ -20,6 +20,6 @@ from census.views import pincode
 
 urlpatterns = [
     path("<pincode>", pincode, name="pincode"),
-    path("census/", include("census.urls")),
+    path("census-2011/", include("census.urls")),
     path("admin/", admin.site.urls),
 ]

@@ -14,28 +14,33 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <a class="navbar-brand" href="#">Population Census</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-underline">
+          <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-uppercase nav-underline">
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/census/">Home</a>
+                <a class="nav-link" aria-current="page" href="{% url 'index' %}">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/census/states/">States</a>
+                <a class="nav-link" aria-current="page" href="{% url 'state_list' %}">States</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/census/districts/">Districts</a>
+                <a class="nav-link" href="{% url 'district' %}">Districts</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/census/cities/">Cities</a>
+                <a class="nav-link" href="{% url 'cities' %}">Cities</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/census/villages">Village</a>
+                <a class="nav-link" href="{% url 'village' %}">Village</a>
               </li>
              <!--  <li class="nav-item">
                 <a class="nav-link" href="{% url 'search' %}">SearchByPincode</a>
@@ -46,6 +51,7 @@
               <input class="form-control me-2"  name="pincode" type="text" placeholder="Enter Pincode" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
+          </ul>
           </div>
         </div>
       </nav>
@@ -78,205 +84,205 @@
                 <tr>
                   <th>1</th>
                   <th>Number Of Houshold</th>
-                  <td>{{ district.data.no_of_houshold}}</td>
+                  <td>{{ district.district_years.all.0.data.no_of_houshold}}</td>
                   <td class="text-center">--</td>
                   <td class="text-center">--</td>
                 </tr>
                 <tr>
                   <th>2</th>
                    <th>Total Populaton</th>
-                   <td class="text-center">{{ district.data.total_popul_persons}}</td>
-                   <td class="text-center">{{ district.data.total_popul_males}}</td>
-                   <td class="text-center">{{ district.data.total_popul_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.total_popul_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.total_popul_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.total_popul_females}}</td>
                 </tr>
                 <tr>
                   <th>3</th>
                    <th>Total Child Population (0-6 Age)</th>
-                   <td class="text-center">{{ district.data.popul_in_agePersons}}</td>
-                   <td class="text-center">{{ district.data.popul_in_ageMales}}</td>
-                   <td class="text-center">{{ district.data.popul_in_ageFemales}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.popul_in_agePersons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.popul_in_ageMales}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.popul_in_ageFemales}}</td>
                 </tr>
                 <tr>
                   <th>4</th>
                    <th>Cast Populaton</th>
-                   <td class="text-center">{{ district.data.caste_popul_persons}}</td>
-                   <td class="text-center">{{ district.data.caste_popul_males}}</td>
-                   <td class="text-center">{{ district.data.caste_popul_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.caste_popul_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.caste_popul_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.caste_popul_females}}</td>
                 </tr>
                 <tr>
                   <th>5</th>
                    <th>Tribe Populaton</th>
-                   <td class="text-center">{{ district.data.tribe_popul_persons}}</td>
-                   <td class="text-center">{{ district.data.tribe_popul_males}}</td>
-                   <td class="text-center">{{ district.data.tribe_popul_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.tribe_popul_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.tribe_popul_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.tribe_popul_females}}</td>
                 </tr>
                 <tr>
                   <th>6</th>
                    <th>Literacy</th>
-                   <td class="text-center">{{ district.data.literates_persons|mul:100|div:district.data.total_popul_persons|floatformat:2}} %</td>
-                   <td class="text-center">{{ district.data.literates_males|mul:100|div:district.data.total_popul_males|floatformat:2}} %</td>
-                   <td class="text-center">{{ district.data.literates_females|mul:100|div:district.data.total_popul_females|floatformat:2}} %</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.literates_persons|mul:100|div:district.district_years.all.0.data.total_popul_persons|floatformat:2}} %</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.literates_males|mul:100|div:district.district_years.all.0.data.total_popul_males|floatformat:2}} %</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.literates_females|mul:100|div:district.district_years.all.0.data.total_popul_females|floatformat:2}} %</td>
                 </tr>
                 <tr>
                   <th>7</th>
                    <th>Illiteracy</th>
-                   <td class="text-center">{{ district.data.illiterates_persons|mul:100|div:district.data.total_popul_persons|floatformat:2}} %</td>
-                   <td class="text-center">{{ district.data.illiterates_males|mul:100|div:district.data.total_popul_males|floatformat:2}} %</td>
-                   <td class="text-center">{{ district.data.illiterates_females|mul:100|div:district.data.total_popul_females|floatformat:2}} %</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.illiterates_persons|mul:100|div:district.district_years.all.0.data.total_popul_persons|floatformat:2}} %</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.illiterates_males|mul:100|div:district.district_years.all.0.data.total_popul_males|floatformat:2}} %</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.illiterates_females|mul:100|div:district.district_years.all.0.data.total_popul_females|floatformat:2}} %</td>
                 </tr>
                 <tr>
                   <th>8</th>
                    <th>Total Workers</th>
-                   <td class="text-center">{{ district.data.total_workers_persons}}</td>
-                   <td class="text-center">{{ district.data.total_workers_males}}</td>
-                   <td class="text-center">{{ district.data.total_workers_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.total_workers_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.total_workers_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.total_workers_females}}</td>
                 </tr>
                 <tr>
                   <th>9</th>
                    <th>Main Workers</th>
-                   <td class="text-center">{{ district.data.main_workers_persons}}</td>
-                   <td class="text-center">{{ district.data.main_workers_males}}</td>
-                   <td class="text-center">{{ district.data.main_workers_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_females}}</td>
                 </tr>
                 <tr>
                   <th>10</th>
                    <th>Main Workers - Cultivators</th>
-                   <td class="text-center">{{ district.data.workers_culti_persons}}</td>
-                   <td class="text-center">{{ district.data.workers_culti_males}}</td>
-                   <td class="text-center">{{ district.data.workers_culti_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.workers_culti_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.workers_culti_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.workers_culti_females}}</td>
                 </tr>
                 <tr>
                   <th>11</th>
                    <th>Main Workers - Agricultural Labourers</th>
-                   <td class="text-center">{{ district.data.main_workers_agri_labourers_persons}}</td>
-                   <td class="text-center">{{ district.data.main_workers_agri_labourers_males}}</td>
-                   <td class="text-center">{{ district.data.main_workers_agri_labourers_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_agri_labourers_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_agri_labourers_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_agri_labourers_females}}</td>
                 </tr>
                 <tr>
                   <th>12</th>
                    <th>Main Workers - Workers in Household Industries</th>
-                   <td class="text-center">{{ district.data.main_workers_household_industries_persons}}</td>
-                   <td class="text-center">{{ district.data.main_workers_household_industries_males}}</td>
-                   <td class="text-center">{{ district.data.main_workers_household_industries_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_household_industries_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_household_industries_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_household_industries_females}}</td>
                 </tr>
                 <tr>
                   <th>13</th>
                    <th>Main Workers - Other Workers</th>
-                   <td class="text-center">{{ district.data.main_workers_other_workers_persons}}</td>
-                   <td class="text-center">{{ district.data.main_workers_other_workers_males}}</td>
-                   <td class="text-center">{{ district.data.main_workers_other_workers_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_other_workers_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_other_workers_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.main_workers_other_workers_females}}</td>
                 </tr>
                 <tr>
                   <th>14</th>
                    <th>Marginal Workers</th>
-                   <td class="text-center">{{ district.data.marginal_workers_persons}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_males}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_females}}</td>
                 </tr>
                 <tr>
                   <th>15</th>
                    <th>Marginal Workers - Cultivators</th>
-                   <td class="text-center">{{ district.data.marginal_cultivators_persons}}</td>
-                   <td class="text-center">{{ district.data.marginal_cultivators_males}}</td>
-                   <td class="text-center">{{ district.data.marginal_cultivators_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_cultivators_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_cultivators_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_cultivators_females}}</td>
                 </tr>
                 <tr>
                   <th>16</th>
                    <th>Marginal Workers - Agricultural Labourers</th>
-                   <td class="text-center">{{ district.data.marginal_agri_labourers_persons}}</td>
-                   <td class="text-center">{{ district.data.marginal_agri_labourers_males}}</td>
-                   <td class="text-center">{{ district.data.marginal_agri_labourers_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_agri_labourers_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_agri_labourers_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_agri_labourers_females}}</td>
                 </tr>
                 <tr>
                   <th>17</th>
                    <th>Marginal Workers - Workers in Household Industries</th>
-                   <td class="text-center">{{ district.data.marginal_workers_household_industries_persons}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_household_industries_males}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_household_industries_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_household_industries_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_household_industries_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_household_industries_females}}</td>
                 </tr>
                 <tr>
                   <th>18</th>
                    <th>Marginal Workers - Other Workers</th>
-                   <td class="text-center">{{ district.data.marginal_workers_other_workers_persons}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_other_workers_males}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_other_workers_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_other_workers_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_other_workers_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_other_workers_females}}</td>
                 </tr>
                 <tr>
                   <th>19</th>
                    <th>Marginal Workers - Those worked for 3 months or more and less than 6 months</th>
-                   <td class="text-center">{{ district.data.marginal_workers_3_to_6_months_persons}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_3_to_6_months_males}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_3_to_6_months_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_3_to_6_months_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_3_to_6_months_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_3_to_6_months_females}}</td>
                 </tr>
                 <tr>
                   <th>20</th>
                    <th>Marginal Workers - Cultivators - Those worked for 3 months or more and less than 6 months</th>
-                   <td class="text-center">{{ district.data.marginal_cultivators_persons_3_to_6_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_cultivators_males_3_to_6_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_cultivators_females_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_cultivators_persons_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_cultivators_males_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_cultivators_females_3_to_6_months}}</td>
                 </tr>
                 <tr>
                   <th>21</th>
                    <th>Marginal Workers - Agricultural Labourers - Those worked for 3 months or more and less than 6 months</th>
-                   <td class="text-center">{{ district.data.marginal_agri_labourers_persons_3_to_6_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_agri_labourers_males_3_to_6_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_agri_labourers_females_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_agri_labourers_persons_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_agri_labourers_males_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_agri_labourers_females_3_to_6_months}}</td>
                 </tr>
                 <tr>
                   <th>22</th>
                    <th>Marginal Workers - Workers in Household Industries - Those worked for 3 months or more and less than 6 months</th>
-                   <td class="text-center">{{ district.data.marginal_workers_household_industries_persons_3_to_6_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_household_industries_males_3_to_6_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_household_industries_females_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_household_industries_persons_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_household_industries_males_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_household_industries_females_3_to_6_months}}</td>
                 </tr>
                 <tr>
                   <th>23</th>
                    <th>Marginal Workers - Other Workers - Those worked for 3 months or more and less than 6 months</th>
-                   <td class="text-center">{{ district.data.marginal_other_workers_males_3_to_6_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_household_industries_males_3_to_6_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_other_workers_females_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_other_workers_males_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_household_industries_males_3_to_6_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_other_workers_females_3_to_6_months}}</td>
                 </tr>
                 <tr>
                   <th>24</th>
                    <th>Marginal Workers - Those worked for less than 3 months</th>
-                   <td class="text-center">{{ district.data.marginal_workers_less_than_3_months_persons}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_less_than_3_months_males}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_less_than_3_months_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_less_than_3_months_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_less_than_3_months_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_less_than_3_months_females}}</td>
                 </tr>
                 <tr>
                   <th>25</th>
                    <th>Marginal Workers - Cultivators - Those worked for less than 3 months</th>
-                   <td class="text-center">{{ district.data.marginal_cultivators_persons_less_than_3_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_cultivators_males_less_than_3_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_cultivators_females_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_cultivators_persons_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_cultivators_males_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_cultivators_females_less_than_3_months}}</td>
                 </tr>
                 <tr>
                   <th>26</th>
                    <th>Marginal Workers - Agricultural Labourers - Those worked for less than 3 months</th>
-                   <td class="text-center">{{ district.data.marginal_agri_labourers_persons_less_than_3_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_agri_labourers_males_less_than_3_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_agri_labourers_females_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_agri_labourers_persons_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_agri_labourers_males_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_agri_labourers_females_less_than_3_months}}</td>
                 </tr>
                 <tr>
                   <th>27</th>
                    <th>Marginal Workers - Workers in Household Industries - Those worked for less than 3 months</th>
-                   <td class="text-center">{{ district.data.marginal_workers_household_industries_persons_less_than_3_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_household_industries_males_less_than_3_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_workers_household_industries_females_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_household_industries_persons_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_household_industries_males_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_workers_household_industries_females_less_than_3_months}}</td>
                 </tr>
                 <tr>
                   <th>28</th>
                    <th>Marginal Workers - Other Workers - Those worked for less than 3 months</th>
-                   <td class="text-center">{{ district.data.marginal_other_workers_persons_less_than_3_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_other_workers_males_less_than_3_months}}</td>
-                   <td class="text-center">{{ district.data.marginal_other_workers_females_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_other_workers_persons_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_other_workers_males_less_than_3_months}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.marginal_other_workers_females_less_than_3_months}}</td>
                 </tr>
                 <tr>
                   <th>29</th>
                    <th>Non-Workers</th>
-                   <td class="text-center">{{ district.data.non_workers_persons}}</td>
-                   <td class="text-center">{{ district.data.non_workers_males}}</td>
-                   <td class="text-center">{{ district.data.non_workers_females}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.non_workers_persons}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.non_workers_males}}</td>
+                   <td class="text-center">{{ district.district_years.all.0.data.non_workers_females}}</td>
                 </tr>
               </tbody>
             </table>
@@ -309,11 +315,11 @@
 
                 {% for city in district.city_set.all %}
                 <tr>
-                  <th scope="row">{{city.id}}</th>
-                  <td><a href="/census/cities/{{ city.slug }}/">{{ city.name }}</a></td>
-                  <td class="text-center">{{ city.data.total_popul_persons}}</td>
-                  <td class="text-center">{{ city.rural_data.total_popul_persons}}</td>
-                  <td class="text-center">{{ city.urban_data.total_popul_persons}}</td>
+                  <th scope="row">{{city.city_code}}</th>
+                  <td><a href="{% url 'village_list' city.slug%}">{{ city.name }}</a></td>
+                  <td class="text-center">{{ city.city_years.all.0.data.total_popul_persons}}</td>
+                  <td class="text-center">{{ city.city_years.all.0.rural_data.total_popul_persons}}</td>
+                  <td class="text-center">{{ city.city_years.all.0.urban_data.total_popul_persons}}</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -325,6 +331,10 @@
         {% endif %}
       </div>
     </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>

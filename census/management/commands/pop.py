@@ -1,6 +1,6 @@
 from concurrent.futures import ThreadPoolExecutor
 from django.core.management.base import BaseCommand
-from census.models import State, District, City, Village, Data
+from census.models import State, District, City, Village, Data, Year
 import pandas as pd
 
 
@@ -14,7 +14,7 @@ class Command(BaseCommand):
         excel_file_path = '/home/vaibhav/Desktop/pop.xlsx'
 
         # Specify the number of rows to read (adjust as needed)
-        nrows = 500
+        nrows = 1000
 
         # Read the specified number of rows from the Excel file into a DataFrame
         df = pd.read_excel(excel_file_path, nrows=nrows)
@@ -169,97 +169,77 @@ class Command(BaseCommand):
             print("Level " + level)
             print("TRU: " + totalRuralUrban)
 
-            if level == 'STATE' and totalRuralUrban == 'Total':
-                state_instance, created = State.objects.update_or_create(
+
+            
+            if level == "STATE":
+                state_instance, created = State.objects.get_or_create(
                     name=areaName,
-                    state_code=stateCode,
-                    defaults={'data': data_instance}
+                    state_code=stateCode
                 )
-                print("saved in state and total")
 
                 state_instance.save()
+                year_instance, created = Year.objects.get_or_create(year=2011, state=state_instance)
 
-            elif level == 'STATE' and totalRuralUrban == 'Rural':
-                State.objects.update_or_create(
-                    name=areaName,
-                    state_code=stateCode,
-                    defaults={'rural_data': data_instance}
-                )
-                print("saved in state and rural_data")
+                if totalRuralUrban == "Total":
+                    year_instance.data = data_instance
+                elif totalRuralUrban == "Rural":
+                    year_instance.rural_data = data_instance
+                elif totalRuralUrban == "Urban":
+                    year_instance.urban_data = data_instance
 
-            elif level == 'STATE' and totalRuralUrban == 'Urban':
-                State.objects.update_or_create(
-                    name=areaName,
-                    state_code=stateCode,
-                    defaults={'urban_data': data_instance}
-                )
-                print("saved in state and urban_data")
+                year_instance.save()
 
-            elif level == 'DISTRICT' and totalRuralUrban == 'Total':
+
+            elif level == 'DISTRICT':
                 state_instance = State.objects.get(state_code=stateCode)
                 district_instance, created = District.objects.update_or_create(
                     name=areaName,
                     district_code=districtCode,
-                    defaults={'data': data_instance, 'state': state_instance}
+                    defaults={'state': state_instance}
                 )
                 print("saved in district and total")
 
                 district_instance.save()
 
-            elif level == 'DISTRICT' and totalRuralUrban == 'Rural':
-                state_instance = State.objects.get(state_code=stateCode)
-                District.objects.update_or_create(
-                    name=areaName,
-                    district_code=districtCode,
-                    defaults={'rural_data': data_instance, 'state': state_instance}
-                )
-                print("saved in district and rural_data")
+                year_instance, created = Year.objects.get_or_create(year=2011, district=district_instance)
 
-            elif level == 'DISTRICT' and totalRuralUrban == 'Urban':
-                state_instance = State.objects.get(state_code=stateCode)
-                District.objects.update_or_create(
-                    name=areaName,
-                    district_code=districtCode,
-                    defaults={'urban_data': data_instance, 'state': state_instance}
-                )
-                print("saved in district and urban_data")
+                if totalRuralUrban == "Total":
+                    year_instance.data = data_instance
+                elif totalRuralUrban == "Rural":
+                    year_instance.rural_data = data_instance
+                elif totalRuralUrban == "Urban":
+                    year_instance.urban_data = data_instance
 
-            elif level == 'SUB-DISTRICT' and totalRuralUrban == 'Total':
+                year_instance.save()
+
+
+            elif level == 'SUB-DISTRICT':
                 state_instance = State.objects.get(state_code=stateCode)
                 district_instance = District.objects.get(district_code=districtCode)
 
                 city_instance, created = City.objects.update_or_create(
                     name=areaName,
                     city_code=subDistrictCode,
-                    defaults={'data': data_instance, 'state': state_instance, 'district': district_instance}
+                    defaults={'state': state_instance, 'district': district_instance}
                 )
                 print("saved in city and total")
 
                 city_instance.save()
 
-            elif level == 'SUB-DISTRICT' and totalRuralUrban == 'Rural':
-                state_instance = State.objects.get(state_code=stateCode)
-                district_instance = District.objects.get(district_code=districtCode)
+                year_instance, created = Year.objects.get_or_create(year=2011, city=city_instance)
 
-                City.objects.update_or_create(
-                    name=areaName,
-                    city_code=subDistrictCode,
-                    defaults={'rural_data': data_instance, 'state': state_instance, 'district': district_instance}
-                )
-                print("saved in city and rural_data")
+                if totalRuralUrban == "Total":
+                    year_instance.data = data_instance
+                elif totalRuralUrban == "Rural":
+                    year_instance.rural_data = data_instance
+                elif totalRuralUrban == "Urban":
+                    year_instance.urban_data = data_instance
 
-            elif level == 'SUB-DISTRICT' and totalRuralUrban == 'Urban':
-                state_instance = State.objects.get(state_code=stateCode)
-                district_instance = District.objects.get(district_code=districtCode)
+                year_instance.save()
 
-                City.objects.update_or_create(
-                    name=areaName,
-                    city_code=subDistrictCode,
-                    defaults={'urban_data': data_instance, 'state': state_instance, 'district': district_instance}
-                )
-                print("saved in city and urban_data")
 
-            elif level == 'VILLAGE' and totalRuralUrban == 'Total':
+
+            elif level == 'VILLAGE':
                 print("coming here")
                 state_instance = State.objects.get(state_code=stateCode)
                 district_instance = District.objects.get(district_code=districtCode)
@@ -270,7 +250,6 @@ class Command(BaseCommand):
                     name=areaName,
                     village_code=villageCode,
                     defaults={
-                        'data': data_instance,
                         'state': state_instance,
                         'district': district_instance,
                         'city': city_instance
@@ -280,40 +259,16 @@ class Command(BaseCommand):
 
                 village_instance.save()
 
-            elif level == 'VILLAGE' and totalRuralUrban == 'Rural':
-                state_instance = State.objects.get(state_code=stateCode)
-                district_instance = District.objects.get(district_code=districtCode)
-                city_instance = City.objects.get(city_code=subDistrictCode)
+                year_instance, created = Year.objects.get_or_create(year=2011, village=village_instance)
 
+                if totalRuralUrban == "Total":
+                    year_instance.data = data_instance
+                elif totalRuralUrban == "Rural":
+                    year_instance.rural_data = data_instance
+                elif totalRuralUrban == "Urban":
+                    year_instance.urban_data = data_instance
 
-                Village.objects.update_or_create(
-                    name=areaName,
-                    village_code=villageCode,
-                    defaults={
-                        'rural_data': data_instance,
-                        'state': state_instance,
-                        'district': district_instance,
-                        'city': city_instance
-                    }
-                )
-                print("saved in village and rural_data")
+                year_instance.save()
 
-            elif level == 'VILLAGE' and totalRuralUrban == 'Urban':
-                state_instance = State.objects.get(state_code=stateCode)
-                district_instance = District.objects.get(district_code=districtCode)
-                city_instance = City.objects.get(city_code=subDistrictCode)
-
-
-                Village.objects.update_or_create(
-                    name=areaName,
-                    village_code=villageCode,
-                    defaults={
-                        'urban_data': data_instance,
-                        'state': state_instance,
-                        'district': district_instance,
-                        'city': city_instance
-                    }
-                )
-                print("saved in village and urban_data")
 
         print("Processing completed.")

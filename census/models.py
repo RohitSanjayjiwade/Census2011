@@ -150,12 +150,10 @@ class Data(models.Model):
         return f"{self.area_name} - {self.total_rural_urban}"
 
 
+
 class State(models.Model):
     name = models.CharField(max_length=30, unique=True)
     state_code = models.CharField(max_length=30, default='')
-    data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='state_data')
-    rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='state_rural_data')
-    urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='state_urban_data')
     slug = models.SlugField(unique=True, blank=True)
 
     def __str__(self):
@@ -170,10 +168,10 @@ class District(models.Model):
     name = models.CharField(max_length=30)
     state = models.ForeignKey(State, on_delete=models.CASCADE)
     district_code = models.CharField(max_length=30, default='')
-    data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='district_data')
-    rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='district_rural_data')
-    urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='district_urban_data')
     slug = models.SlugField(unique=True, blank=True)
+    # data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='district_data')
+    # rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='district_rural_data')
+    # urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='district_urban_data')
 
 
     def __str__(self):
@@ -188,10 +186,11 @@ class City(models.Model):
     state = models.ForeignKey(State, on_delete = models.CASCADE)
     district = models.ForeignKey(District, on_delete=models.CASCADE)
     city_code = models.CharField(max_length=30, default="")
-    data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='city_data')
-    rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='city_rural_data')
-    urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='city_urban_data')
     slug = models.SlugField(unique=True, blank=True)
+    # data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='city_data')
+    # rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='city_rural_data')
+    # urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='city_urban_data')
+    
 
     def __str__(self):
         return f"{self.name}"
@@ -206,9 +205,10 @@ class Village(models.Model):
     district = models.ForeignKey(District, on_delete=models.CASCADE)
     city = models.ForeignKey(City, on_delete = models.CASCADE)
     village_code = models.CharField(max_length=30, default="")
-    data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='village_data')
-    rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='village_rural_data')
-    urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='village_urban_data')
+    slug = models.SlugField(unique=True, blank=True)
+    # data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='village_data')
+    # rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='village_rural_data')
+    # urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='village_urban_data')
     # slug = models.SlugField(unique=True, blank=True)
     pincode = models.CharField(max_length=6)
     villageType = models.CharField(max_length=6, null=True)
@@ -224,7 +224,31 @@ class Village(models.Model):
         # return f"{self.name}{self.pincode}{self.villageType}{self.deliveryStatus}{self.divisionName}{self.regionName}{self.circleName}{self.telephone}{self.relatedSuboffice}{self.relatedHeadoffice}"
         return f"{self.name}"
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(f"{self.id}-{self.name}")
-    #     super(Village, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(f"{self.id}-{self.name}")
+        super(Village, self).save(*args, **kwargs)
+
+
+
+class Year(models.Model):
+    year = models.IntegerField()
+    state = models.ForeignKey(State, on_delete=models.CASCADE, null=True, blank=True, related_name='state_years')
+    district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True, related_name='district_years')
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True, related_name='city_years')
+    village = models.ForeignKey(Village, on_delete=models.CASCADE, null=True, blank=True, related_name='village_years')
+    data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='data_year')
+    rural_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='rural_data_year')
+    urban_data = models.ForeignKey(Data, on_delete=models.CASCADE, null=True, related_name='urban_data_year')
+
+    def __str__(self):
+        if self.state:
+            return f"{self.year} - State: {self.state.name}"
+        elif self.district:
+            return f"{self.year} - District: {self.district.name}"
+        elif self.city:
+            return f"{self.year} - City: {self.city.name}"
+        elif self.village:
+            return f"{self.year} - Village: {self.village.name}"
+        else:
+            return f"{self.year} - No associated location"
 

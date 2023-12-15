@@ -11,7 +11,7 @@ urlpatterns = [
     path("districts/", views.district, name="district"),
     path("villages/", views.village, name="village"),
     path("cities/", views.cities, name="cities"),
-    path("village/<int:village_id>/", views.village_info, name="village_info"),
+    path("village/<slug:slug>/", views.village_info, name="village_info"),
     path('get_location/', views.get_location, name="get_location"),
     path('search/', views.search, name="search")
 ]
