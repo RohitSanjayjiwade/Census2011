@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from census.views import pincode
+from census.views import pincode #index
 
 urlpatterns = [
+    # path("", index, name="index"),
     path("<pincode>", pincode, name="pincode"),
     path("census-2011/", include("census.urls")),
     path("admin/", admin.site.urls),

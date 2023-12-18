@@ -60,53 +60,52 @@
     </nav>
 
      <div class="container my-5">
-        <!-- Information Above Table -->
-        <div class="row mb-3">
-            <div class="col">
-                <!-- Add your information here -->
-                <!-- <p>Your information goes here.</p> -->
+    <!-- Information Above Table -->
+    <div class="row mb-3">
+        <div class="col">
+            <!-- Add your information here -->
+            <!-- <p>Your information goes here.</p> -->
+        </div>
+    </div>
+
+    <section class="container mt-3 mt-md-5">
+        <!-- State List -->
+        <h1 class="h1 display-4 px-2 px-md-5">
+            States List
+        </h1>
+        {% if state_list %}
+        <div class="card px-3 px-md-5 mb-4 mt-2">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">States Name</th>
+                            <th scope="col" class="text-center">Population (Total)</th>
+                            <th scope="col" class="text-center">Population (Rural)</th>
+                            <th scope="col" class="text-center">Population (Urban)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for state in state_list %}
+                        <tr>
+                            <th scope="row">{{ state.state_code }}</th>
+                            <td><a href="{% url 'district_list' slug=state.slug %}">{{ state.name }}</a></td>
+                            <td class="text-center">{{ state.state_years.all.0.data.total_popul_persons }}</td>
+                            <td class="text-center">{{ state.state_years.all.0.rural_data.total_popul_persons }}</td>
+                            <td class="text-center">{{ state.state_years.all.0.urban_data.total_popul_persons }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
         </div>
+        {% else %}
+        <p>No State are available.</p>
+        {% endif %}
+    </section>
+</div>
 
-        <section class="container mt-5">
-            <!-- State List -->
-            <h1 class="h-primary px-5">States List</h1>
-            {% if state_list %}
-            <div class="card mx-5 mb-5 mt-3">
-                <div class="table-responsive">
-                        
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">States Name</th>
-                                    <th scope="col" class="text-center">Population(Total)</th>
-                                    <th scope="col" class="text-center">Population(Rural)</th>
-                                    <th scope="col" class="text-center">Population(Urban)</th>
-                                </tr>
-                                </thead>
-                                <tbody> 
-
-                                   {% for state in state_list %}
-                                <tr>
-                                    <th scope="row">{{state.state_code}}</th>
-                                    <!-- <td><a href="/census/states/{{ state.id }}/">{{ state.name }}</a></td> -->
-                                    <td><a href="{% url 'district_list' slug=state.slug %}">{{ state.name }}</a></td>
-                                    <td class="text-center">{{state.state_years.all.0.data.total_popul_persons}}</td>
-                                    <!-- <td class="text-center">{{ state.data.total_popul_persons}}</td> -->
-                                    <td class="text-center">{{ state.state_years.all.0.rural_data.total_popul_persons}}</td>
-                                    <td class="text-center">{{ state.state_years.all.0.urban_data.total_popul_persons}}</td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                </div>
-            </div>
-            {% else %}
-            <p>No State are available.</p>
-            {% endif %}
-        </section>
-    </div>
 
     <!-- Bootstrap JS and dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
