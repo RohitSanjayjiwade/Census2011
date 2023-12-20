@@ -2,19 +2,41 @@
 <html lang="en">
 
 <head>
+    {% load humanize %}
     {% load mathfilters %}
     {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Census</title>
+    <meta name="description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <title>{{city}} - Population | {{ city.name }} - Vilages List</title>
+
+   <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{{ city.name }} - Population | {{ city.name }} - Vilages List">
+    <meta property="og:description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <!-- <meta property="og:image" content="{{ city.image.url }}"> -->
+
+     <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta property="twitter:title" content="{{ city.name }} - Population | {{ city.name }} - Vilages List">
+    <meta property="twitter:description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <!-- <meta property="twitter:image" content="{{ city.image.url }}"> -->
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" href="" type="image/x-icon"> -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Bree+Serif&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+  <header class="bg-dark text-white">
+    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary fixed-top" data-bs-theme="dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Population Census</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -51,29 +73,57 @@
               <input class="form-control me-2"  name="pincode" type="text" placeholder="Enter Pincode" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form> -->
-            </ul>
+                </ul>
+              </div>
             </div>
         </div>
+        </nav>
       </div>
-    </nav>
+    </header>
 
-    <div class="container mt-5">
+    <div class="container my-5">
+       <nav aria-label="breadcrumb" class="mb-3 px-3 px-md-5 mt-5 pt-5">
+          <ol class="breadcrumb bg-secondary-subtle text-emphasis-secondary rounded py-2 px-2">
+            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'state_list' %}">States</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'district_list' slug=city.state.slug %}">{{city.state.name}}</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'city_list' slug=city.district.slug %}">{{city.district}} District</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="{% url 'village_list' city.slug %}">{{city}} City</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="#VillageList">{{city}} Village List</a></li>
+          </ol>
+        </nav>
+
         <!-- Information Above Table -->
-        <div class="row mb-3">
+        <div class="row mb-3 px-3 px-md-5 mt-2">
+          <h1 class="h1 px-3">
+              {{ city.name }} - Population | Villages List
+          </h1>
             <div class="col">
                 <!-- Add your information here -->
                 <!-- <p>Your information goes here.</p> -->
+                <p id="description-paragraph" class="text-sm-start mb-0"> 
+                    In {{city}}, there are a total of {{ city.city_years.all.0.data.no_of_houshold|intcomma}} households. The overall population stands at {{ city.city_years.all.0.data.total_popul_persons|intcomma}}, with {{ city.city_years.all.0.data.total_popul_males|intcomma}} males and {{ city.city_years.all.0.data.total_popul_females|intcomma}} females. Among them, {{ city.city_years.all.0.data.popul_in_agePersons|intcomma}}are children in the age group of 0-6, comprising {{ city.city_years.all.0.data.popul_in_ageMales|intcomma}} males and {{ city.city_years.all.0.data.popul_in_ageFemales|intcomma}} females.
+                <br>
+                <br>
+                    Caste-wise distribution shows a minimal population of {{ city.city_years.all.0.data.caste_popul_persons|intcomma}} individuals, all belonging to the same category. The tribal population in {{city}} is {{ city.city_years.all.0.data.tribe_popul_persons|intcomma}}, with {{ city.city_years.all.0.data.tribe_popul_males|intcomma}} males and {{ city.city_years.all.0.data.tribe_popul_females|intcomma}} females.
+                <br>
+                <br>
+                    The literacy rate in the region is {{ city.city_years.all.0.data.literates_persons|mul:100|div:city.city_years.all.0.data.total_popul_persons|floatformat:2|intcomma}} %, with variations between genders. Male literacy is at {{ city.city_years.all.0.data.literates_males|mul:100|div:city.city_years.all.0.data.total_popul_males|floatformat:2|intcomma}} %, while female literacy is at {{ city.city_years.all.0.data.literates_females|mul:100|div:city.city_years.all.0.data.total_popul_females|floatformat:2|intcomma}} %. Conversely, the illiteracy rate is {{ city.city_years.all.0.data.illiterates_persons|mul:100|div:city.city_years.all.0.data.total_popul_persons|floatformat:2|intcomma}} %, with {{ city.city_years.all.0.data.illiterates_males|mul:100|div:city.city_years.all.0.data.total_popul_males|floatformat:2|intcomma}} % among males and {{ city.city_years.all.0.data.illiterates_females|mul:100|div:city.city_years.all.0.data.total_popul_females|floatformat:2|intcomma}} % among females.
+                <br>
+                <br>
+                    In the workforce, {{city}} has a total of {{ city.city_years.all.0.data.total_workers_persons|intcomma}} individuals, including {{ city.city_years.all.0.data.total_workers_males|intcomma}} males and {{ city.city_years.all.0.data.total_workers_females|intcomma}} females. Among them, {{ city.city_years.all.0.data.main_workers_persons|intcomma}} are classified as main workers, with {{ city.city_years.all.0.data.main_workers_males|intcomma}} males and {{ city.city_years.all.0.data.main_workers_females|intcomma}} females. The distribution of main workers includes cultivators, agricultural laborers, workers in household industries, and other workers.
+                </p>
             </div>
         </div>
 
-    <section class="container mt-3 mt-md-5">
+    <section class="mt-3 mt-md-5">
        <!-- State List -->
        {% if city %}
-       <h1 class="h-primary px-2 px-md-5">{{city}} Total Population Data</h1>
-      <div class="card px-3 px-md-5 mb-4 mt-2">
+       <h2 class="h2 px-2 px-md-5">{{city}} Total Population Data</h2>
+      <div class="card px-md-5 mb-4 mt-2 border border-0">
         <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
+          <table class="table table-hover table-striped bg-body-tertiary">
+            <thead class="table-secondary">
               <tr>
                 <th scope="col">#</th>
                 <th scope="col" class="px-3">Description</th>
@@ -86,205 +136,205 @@
               <tr>
                 <th>1</th>
                 <th>Number Of Houshold</th>
-                <td class="text-center">{{ city.city_years.all.0.data.no_of_houshold}}</td>
+                <td class="text-center">{{ city.city_years.all.0.data.no_of_houshold|intcomma}}</td>
                 <td class="text-center">--</td>
                 <td class="text-center">--</td>
               </tr>
               <tr>
                 <th>2</th>
                  <th>Total Populaton</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.total_popul_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.total_popul_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.total_popul_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.total_popul_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.total_popul_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.total_popul_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>3</th>
                  <th>Total Child Population (0-6 Age)</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.popul_in_agePersons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.popul_in_ageMales}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.popul_in_ageFemales}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.popul_in_agePersons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.popul_in_ageMales|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.popul_in_ageFemales|intcomma}}</td>
               </tr>
               <tr>
                 <th>4</th>
                  <th>Cast Populaton</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.caste_popul_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.caste_popul_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.caste_popul_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.caste_popul_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.caste_popul_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.caste_popul_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>5</th>
                  <th>Tribe Populaton</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.tribe_popul_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.tribe_popul_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.tribe_popul_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.tribe_popul_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.tribe_popul_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.tribe_popul_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>6</th>
                  <th>Literacy</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.literates_persons|mul:100|div:city.city_years.all.0.data.total_popul_persons|floatformat:2}} %</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.literates_males|mul:100|div:city.city_years.all.0.data.total_popul_males|floatformat:2}} %</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.literates_females|mul:100|div:city.city_years.all.0.data.total_popul_females|floatformat:2}} %</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.literates_persons|mul:100|div:city.city_years.all.0.data.total_popul_persons|floatformat:2|intcomma}} %</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.literates_males|mul:100|div:city.city_years.all.0.data.total_popul_males|floatformat:2|intcomma}} %</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.literates_females|mul:100|div:city.city_years.all.0.data.total_popul_females|floatformat:2|intcomma}} %</td>
               </tr>
               <tr>
                 <th>7</th>
                  <th>Illiteracy</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.illiterates_persons|mul:100|div:city.city_years.all.0.data.total_popul_persons|floatformat:2}} %</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.illiterates_males|mul:100|div:city.city_years.all.0.data.total_popul_males|floatformat:2}} %</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.illiterates_females|mul:100|div:city.city_years.all.0.data.total_popul_females|floatformat:2}} %</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.illiterates_persons|mul:100|div:city.city_years.all.0.data.total_popul_persons|floatformat:2|intcomma}} %</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.illiterates_males|mul:100|div:city.city_years.all.0.data.total_popul_males|floatformat:2|intcomma}} %</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.illiterates_females|mul:100|div:city.city_years.all.0.data.total_popul_females|floatformat:2|intcomma}} %</td>
               </tr>
               <tr>
                 <th>8</th>
                  <th>Total Workers</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.total_workers_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.total_workers_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.total_workers_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.total_workers_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.total_workers_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.total_workers_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>9</th>
                  <th>Main Workers</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>10</th>
                  <th>Main Workers - Cultivators</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.workers_culti_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.workers_culti_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.workers_culti_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.workers_culti_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.workers_culti_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.workers_culti_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>11</th>
                  <th>Main Workers - Agricultural Labourers</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_agri_labourers_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_agri_labourers_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_agri_labourers_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_agri_labourers_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_agri_labourers_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_agri_labourers_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>12</th>
                  <th>Main Workers - Workers in Household Industries</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_household_industries_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_household_industries_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_household_industries_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_household_industries_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_household_industries_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_household_industries_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>13</th>
                  <th>Main Workers - Other Workers</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_other_workers_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_other_workers_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_other_workers_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_other_workers_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_other_workers_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.main_workers_other_workers_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>14</th>
                  <th>Marginal Workers</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>15</th>
                  <th>Marginal Workers - Cultivators</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>16</th>
                  <th>Marginal Workers - Agricultural Labourers</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>17</th>
                  <th>Marginal Workers - Workers in Household Industries</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>18</th>
                  <th>Marginal Workers - Other Workers</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_other_workers_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_other_workers_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_other_workers_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_other_workers_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_other_workers_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_other_workers_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>19</th>
                  <th>Marginal Workers - Those worked for 3 months or more and less than 6 months</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_3_to_6_months_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_3_to_6_months_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_3_to_6_months_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_3_to_6_months_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_3_to_6_months_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_3_to_6_months_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>20</th>
                  <th>Marginal Workers - Cultivators - Those worked for 3 months or more and less than 6 months</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_persons_3_to_6_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_males_3_to_6_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_females_3_to_6_months}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_persons_3_to_6_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_males_3_to_6_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_females_3_to_6_months|intcomma}}</td>
               </tr>
               <tr>
                 <th>21</th>
                  <th>Marginal Workers - Agricultural Labourers - Those worked for 3 months or more and less than 6 months</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_persons_3_to_6_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_males_3_to_6_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_females_3_to_6_months}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_persons_3_to_6_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_males_3_to_6_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_females_3_to_6_months|intcomma}}</td>
               </tr>
               <tr>
                 <th>22</th>
                  <th>Marginal Workers - Workers in Household Industries - Those worked for 3 months or more and less than 6 months</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_persons_3_to_6_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_males_3_to_6_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_females_3_to_6_months}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_persons_3_to_6_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_males_3_to_6_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_females_3_to_6_months|intcomma}}</td>
               </tr>
               <tr>
                 <th>23</th>
                  <th>Marginal Workers - Other Workers - Those worked for 3 months or more and less than 6 months</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_other_workers_males_3_to_6_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_males_3_to_6_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_other_workers_females_3_to_6_months}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_other_workers_males_3_to_6_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_males_3_to_6_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_other_workers_females_3_to_6_months|intcomma}}</td>
               </tr>
               <tr>
                 <th>24</th>
                  <th>Marginal Workers - Those worked for less than 3 months</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_less_than_3_months_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_less_than_3_months_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_less_than_3_months_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_less_than_3_months_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_less_than_3_months_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_less_than_3_months_females|intcomma}}</td>
               </tr>
               <tr>
                 <th>25</th>
                  <th>Marginal Workers - Cultivators - Those worked for less than 3 months</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_persons_less_than_3_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_males_less_than_3_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_females_less_than_3_months}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_persons_less_than_3_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_males_less_than_3_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_cultivators_females_less_than_3_months|intcomma}}</td>
               </tr>
               <tr>
                 <th>26</th>
                  <th>Marginal Workers - Agricultural Labourers - Those worked for less than 3 months</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_persons_less_than_3_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_males_less_than_3_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_females_less_than_3_months}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_persons_less_than_3_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_males_less_than_3_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_agri_labourers_females_less_than_3_months|intcomma}}</td>
               </tr>
               <tr>
                 <th>27</th>
                  <th>Marginal Workers - Workers in Household Industries - Those worked for less than 3 months</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_persons_less_than_3_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_males_less_than_3_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_females_less_than_3_months}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_persons_less_than_3_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_males_less_than_3_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_workers_household_industries_females_less_than_3_months|intcomma|intcomma}}</td>
               </tr>
               <tr>
                 <th>28</th>
                  <th>Marginal Workers - Other Workers - Those worked for less than 3 months</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_other_workers_persons_less_than_3_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_other_workers_males_less_than_3_months}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.marginal_other_workers_females_less_than_3_months}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_other_workers_persons_less_than_3_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_other_workers_males_less_than_3_months|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.marginal_other_workers_females_less_than_3_months|intcomma}}</td>
               </tr>
               <tr>
                 <th>29</th>
                  <th>Non-Workers</th>
-                 <td class="text-center">{{ city.city_years.all.0.data.non_workers_persons}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.non_workers_males}}</td>
-                 <td class="text-center">{{ city.city_years.all.0.data.non_workers_females}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.non_workers_persons|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.non_workers_males|intcomma}}</td>
+                 <td class="text-center">{{ city.city_years.all.0.data.non_workers_females|intcomma}}</td>
               </tr>
             </tbody>
           </table>
@@ -295,15 +345,30 @@
       {% endif %}
     </section>
 
-    <div class="container mt-3 mt-md-5">
+    <!-- Information Above Table -->
+        <div class="row mb-3 px-3 px-md-5 mt-2">
+            <div class="col">
+                <!-- Add your information here -->
+                <!-- <p>Your information goes here.</p> -->
+                <p class="text-sm-start mb-0"> 
+                    There are also {{ city.city_years.all.0.data.marginal_workers_persons|intcomma}} marginal workers, with {{ city.city_years.all.0.data.marginal_workers_males|intcomma}} males and {{ city.city_years.all.0.data.marginal_workers_females|intcomma}} females. This category encompasses those who have worked for 3 months or more and less than 6 months, as well as those who have worked for less than 3 months. The distribution of marginal workers mirrors that of main workers, including cultivators, agricultural laborers, workers in household industries, and other workers.
+                <br>
+                <br>
+                    Additionally, the non-worker population in {{city}} is {{ city.city_years.all.0.data.non_workers_persons|intcomma}}, consisting of {{ city.city_years.all.0.data.non_workers_males|intcomma}} males and {{ city.city_years.all.0.data.non_workers_females|intcomma}} females.
+                <br>
+                    This detailed analysis provides a comprehensive overview of {{city}}'s demographic and occupational landscape, shedding light on various aspects of its population and workforce composition.
+                </p>
+            </div>
+        </div>
+
+    <div id="VillageList" class="mt-3 mt-md-5">
       <!-- Villages List -->
       {% if villages_list %}
-      <h3 class="h3 text-md px-3 px-md-5">Villages List</h3>
-      <h3 class="h3 text-md px-3 px-md-5">{{city}}</h3>
-        <div class="card px-3 px-md-5 mb-4 mt-2">
+      <h3 class="h3 px-2 px-md-5">{{city}} - Villages List</h3>
+        <div class="card px-md-5 mb-4 mt-2 border border-0">
           <div class="table-responsive">
-            <table class="table table-hover">
-              <thead>
+            <table class="table table-hover table-striped bg-body-tertiary">
+              <thead class="table-secondary">
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Village Name</th>
@@ -318,7 +383,7 @@
                   <th scope="row">{{village.village_code}}</th>
                   <td><a href="{% url 'village_info' village.slug %}">{{ village.name }}</a></td>
                   <!-- <td class="text-center"><a href="/{{village.pincode}}">{{ village.pincode }}</a></td> -->
-                  <td class="text-center">{{ village.village_years.all.0.rural_data.total_popul_persons}}</td>
+                  <td class="text-center">{{ village.village_years.all.0.rural_data.total_popul_persons|intcomma}}</td>
                 </tr>
                 {% endfor %}
               </tbody>

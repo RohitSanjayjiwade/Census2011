@@ -6,14 +6,35 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Census</title>
+    <meta name="description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <title>List of Districts with Population(Total)|Population(Rural)|Population(Urban) - Population Census 2011</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="List of Districts with Population(Total)|Population(Rural)|Population(Urban) - Population Census 2011">
+    <meta property="og:description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <!-- <meta property="og:image" content="{{ state.image.url }}"> -->
+
+     <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta property="twitter:title" content="List of Districts with Population(Total)|Population(Rural)|Population(Urban) - Population Census 2011">
+    <meta property="twitter:description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <!-- <meta property="twitter:image" content="{{ state.image.url }}"> -->
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" href="" type="image/x-icon"> -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Bree+Serif&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+  <header class="bg-dark text-white">
+    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary fixed-top" data-bs-theme="dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Population Census</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,25 +76,44 @@
         </div>
       </div>
       </nav>
+    </div>
+  </header>
 
-      <div class="container mt-5">
+      <div class="container my-5">
+        <nav aria-label="breadcrumb" class="mb-3 px-3 px-md-5 mt-5 pt-5">
+          <ol class="breadcrumb bg-secondary-subtle text-emphasis-secondary rounded py-2 px-2">
+            <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Districts of India</li>
+          </ol>
+        </nav>
+
         <!-- Information Above Table -->
-        <div class="row mb-3">
+        <div class="row mb-3 px-3 px-md-5 mt-2">
+          <h1 class="h1 px-3">
+                District Census 2011
+             </h1>
             <div class="col">
                 <!-- Add your information here -->
                 <!-- <p>Your information goes here.</p> -->
+                 <p id="description-paragraph" class="text-sm-start mb-0"> 
+                    The Indian Census 2011 can be referred to as the seventh census operation after Indian independence. The national census 2011 has been run on all the 28 states of the country and the seven Union Territories. There have been surveys on cities and districts as well. The data of Indian census 2011 covers all the major aspects of society like population, sex ratio and literacy percentage as well. Here is a list on census 2011 data of India.
+                <br>
+                <br>
+                    There are presently 28 states in India. The total population of the country is 1.21 billion presently. According to the State Census 2011, the most populated state in India is Uttar Pradesh with a population of 19.96 crores. The least populated state in the country is Sikkim with a population of 60, 7688. The census of Indian states 2011 reveals that Kerala is the highest literate state in the country with 93.91% of literacy rate. Bihar is the least literate state with a literacy rate of 63.82%. The Indian census 2011 state wise shows that Kerala represents the highest sex ratio with 1084 females per 1000 males while Haryana features the lowest sex ratio in India with just 877 women per 1000 males.
+
+                </p>
             </div>
         </div>
 
-        <section class="container mt-3 mt-md-5">
-          <h1 class="h-primary px-5">Districts List</h1>
+        <section class="mt-3 mt-md-5">
+          <h2 class="h2 px-2 px-md-5">Districts List</h3>
           <!-- District List -->
           {% if district_list %}
-          <h1 class="h1 display-4 px-2 px-md-5">{{state}}</h1>
-          <div class="card px-3 px-md-5 mb-4 mt-2">
+          <h2 class="h2 px-2 px-md-5">{{state}}</h1>
+          <div class="card px-md-5 mb-4 mt-2 border border-0">
             <div class="table-responsive">
-              <table class="table table-hover">
-                <thead>
+              <table class="table table-hover table-striped bg-body-tertiary">
+                <thead class="table-secondary">
                   <tr>
                     <th scope="col">#</th>
                     <th scope="col">District Name</th>
@@ -102,18 +142,18 @@
 
                 <div class="pagination"> 
                     <span class="step-links">
-                    {% if villages_list.has_previous %}
+                    {% if district_list.has_previous %}
                         <a href="?page=1"><button type="button" class="btn btn-dark  btn-sm">&laquo; first</button></a>
-                        <a href="?page={{ villages_list.previous_page_number }}"><button type="button" class="btn btn-primary  btn-sm">previous</button></a>
+                        <a href="?page={{ district_list.previous_page_number }}"><button type="button" class="btn btn-primary  btn-sm">previous</button></a>
                     {% endif %}
 
                     <span class="current">
-                        Page {{ villages_list.number }} of {{ villages_list.paginator.num_pages }}.
+                        Page {{ district_list.number }} of {{ district_list.paginator.num_pages }}.
                     </span>
 
-                    {% if villages_list.has_next %}
-                        <a href="?page={{ villages_list.next_page_number }}"><button type="button" class="btn btn-primary  btn-sm">next</button></a>
-                        <a href="?page={{ villages_list.paginator.num_pages }}"><button type="button" class="btn btn-dark  btn-sm">last &raquo;</button></a>
+                    {% if district_list.has_next %}
+                        <a href="?page={{ district_list.next_page_number }}"><button type="button" class="btn btn-primary  btn-sm">next</button></a>
+                        <a href="?page={{ district_list.paginator.num_pages }}"><button type="button" class="btn btn-dark  btn-sm">last &raquo;</button></a>
                     {% endif %}
                     </span>
                  </div>
