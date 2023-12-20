@@ -32,7 +32,7 @@ def city_list(request, slug):
     return render(request, "states/cities.html",{"district": district})
 
 def district(request):
-    district_list = District.objects.all()
+    district_list = District.objects.all().order_by('name')  # Replace 'name' with the actual field name you want to order by
 
     # Number of items to display per page
     items_per_page = 10
@@ -54,7 +54,7 @@ def village_list(request, slug):
     city = get_object_or_404(City, slug=slug)
 
     items_per_page = 10
-    paginator = Paginator(city.village_set.all(), items_per_page)
+    paginator = Paginator(city.village_set.all().order_by('name'), items_per_page)
     page = request.GET.get('page')
 
     try:
@@ -68,7 +68,7 @@ def village_list(request, slug):
     return render(request, "states/villages.html",{"city": city, "villages_list": paginated_data})
 
 def village(request):
-    villages_list = Village.objects.all()
+    villages_list = Village.objects.all().order_by('name')
 
     # Number of items to display per page
     items_per_page = 10
@@ -87,7 +87,7 @@ def village(request):
     return render(request, "states/village_list.html",{"villages_list": paginated_data})
 
 def cities(request):
-    cities = City.objects.all()
+    cities = City.objects.all().order_by('name')
 
     # Number of items to display per page
     items_per_page = 10
