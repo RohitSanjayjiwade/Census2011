@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-#<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> a61481fedfb41a13bca4b089d7aa59a4bfdd73cb
 """
 Django settings for my_app project.
 
@@ -254,4 +249,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
->>>>>>> ad7b85b4eb85b26a82e6fb83d7b9d23f16c51991
