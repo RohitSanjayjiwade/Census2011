@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> a61481fedfb41a13bca4b089d7aa59a4bfdd73cb
 """
 Django settings for my_app project.
 
