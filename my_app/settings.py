@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-#<<<<<<< HEAD
-=======
-<<<<<<< HEAD
->>>>>>> a61481fedfb41a13bca4b089d7aa59a4bfdd73cb
->>>>>>> 81284fa27e487eac708dd29a68499c12a6435376
 """
 Django settings for my_app project.
 
