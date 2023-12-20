@@ -2,10 +2,20 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from .models import State, District, City, Village
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import F, ExpressionWrapper, fields, Sum
 # Create your views here.
 
 def index(request):
-    return render(request, "states/index.html")
+    big_cities = City.objects.annotate(total_population=Sum('city_years__data__total_popul_persons')).order_by('-total_population')[:5]
+    
+    # Calculate literate percentage using ExpressionWrapper
+    literate_percentage_expression = ExpressionWrapper(
+        F('state_years__data__literates_persons') * 100 / F('state_years__data__total_popul_persons'),
+        output_field=fields.FloatField()
+    )
+    
+    top_literate_states = State.objects.annotate(top_literate=literate_percentage_expression).order_by('-top_literate')[:5]
+    return render(request, "states/index.html", {"big_cities": big_cities, "top_literate_states": top_literate_states})
 
 def state_list(request):
     state_list = State.objects.all() 
@@ -25,7 +35,7 @@ def district(request):
     district_list = District.objects.all()
 
     # Number of items to display per page
-    items_per_page = 2
+    items_per_page = 10
     paginator = Paginator(district_list, items_per_page)
     page = request.GET.get('page')
 
@@ -38,7 +48,7 @@ def district(request):
         # If page is out of range (e.g. 9999), deliver the last page of results.
         paginated_data = paginator.page(paginator.num_pages)
 
-    return render(request, "states/district.html",{"district_list": district_list})
+    return render(request, "states/district.html",{"district_list": paginated_data})
 
 def village_list(request, slug):
     city = get_object_or_404(City, slug=slug)

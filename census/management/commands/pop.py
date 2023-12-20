@@ -14,7 +14,7 @@ class Command(BaseCommand):
         excel_file_path = '/home/vaibhav/Desktop/pop.xlsx'
 
         # Specify the number of rows to read (adjust as needed)
-        nrows = 1000
+        nrows = 10000
 
         # Read the specified number of rows from the Excel file into a DataFrame
         df = pd.read_excel(excel_file_path, nrows=nrows)

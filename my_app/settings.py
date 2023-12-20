@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['192.168.1.10']
 
 INSTALLED_APPS = [
     'mathfilters',
+    'django.contrib.humanize',
     'census.apps.CensusConfig',
     'django.contrib.admin',
     'django.contrib.auth',

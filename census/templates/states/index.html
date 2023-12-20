@@ -2,11 +2,31 @@
 <html lang="en">
 
 <head>
+    {% load mathfilters %}
     {% load static %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Census</title>
+    <meta name="description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <title>Census 2011 India</title>
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="Census 2011 India">
+    <meta property="og:description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <!-- <meta property="og:image" content="{{ state.image.url }}"> -->
+
+     <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
+    <meta property="twitter:title" content="Census 2011 India">
+    <meta property="twitter:description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <!-- <meta property="twitter:image" content="{{ state.image.url }}"> -->
+
+    <!-- Favicon -->
+    <!-- <link rel="icon" href="" type="image/x-icon"> -->
+
     <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
     <!-- <link rel="stylesheet" media="screen and (max-width: 1270px)" href="{% static 'css/phone.css' %}"> -->
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Bree+Serif&display=swap"
@@ -15,7 +35,9 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+  <header class="bg-dark text-white">
+    <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary fixed-top" data-bs-theme="dark">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Population Census</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,12 +76,166 @@
         </div>
       </div>
       </nav>
+    </div>
+  </header>
+
       
-      <section class="banner d-flex justify-content-center align-items-center">
-        <div class="text-center">
-          <h1 class="font-weight-bold">Welcome</h1>
+      <div class="container my-5 pt-3">
+        <!-- Information Above Table -->
+        <div class="row mb-3 px-3 px-md-5 mt-2">
+             <h1 class="h1 px-3">
+                Population Census 2011
+             </h1>
+            <div class="col">
+                <!-- Add your information here -->
+                <!-- <p>Your information goes here.</p> -->
+                <p id="description-paragraph" class="text-sm-start mb-0"> 
+                    The Indian Census 2011 can be referred to as the seventh census operation after Indian independence. The national census 2011 has been run on all the 28 states of the country and the seven Union Territories. There have been surveys on cities and districts as well. The data of Indian census 2011 covers all the major aspects of society like population, sex ratio and literacy percentage as well. Here is a list on census 2011 data of India.
+                <br>
+                <br>
+                    There are presently 28 states in India. The total population of the country is 1.21 billion presently. According to the State Census 2011, the most populated state in India is Uttar Pradesh with a population of 19.96 crores. The least populated state in the country is Sikkim with a population of 60, 7688. The census of Indian states 2011 reveals that Kerala is the highest literate state in the country with 93.91% of literacy rate. Bihar is the least literate state with a literacy rate of 63.82%. The Indian census 2011 state wise shows that Kerala represents the highest sex ratio with 1084 females per 1000 males while Haryana features the lowest sex ratio in India with just 877 women per 1000 males.
+
+                </p>
+            </div>
         </div>
-      </section>
+        <section class="mt-3 mt-md-5">
+            <div class="row">
+              <div class="col-sm-6">
+                {% if big_cities %}
+                <div class="card px-md-5 mb-4 mt-2">
+                    <h5 class="card-title">Most Populated Cities</h5>
+                      <div class="table-responsive">
+                        <table class="table table-hover table-striped bg-body-tertiary">
+                          <thead class="table-secondary">
+                            <tr>
+                              <th>City</th>
+                              <th>State</th>
+                              <th>Population</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for city in big_cities %}
+                            <tr>
+                              <td><a href="{% url 'village_list' city.slug %}" title="{{city.name}} Population">{{city.name}}</a></td>
+                              <td><a href="{% url 'district_list' slug=city.state.slug %}" title="{{city.state.name}} Population">{{city.state}}</a></td>
+                              <td>{{ city.city_years.all.0.data.total_popul_persons}}</td>
+                            </tr>
+                             {% endfor %}
+                          </tbody>
+                        </table>
+                        </div>
+                          <p class="card-text">The Urban Metropolitan regions have witness huge population increase in the last 10 years.</p>
+                          <a href="#" class="btn btn-secondary">Most Populated Metropolitan</a>
+                    </div>
+                  {% else %}
+                  <p>No Data are available.</p>
+                  {% endif %}
+                </div>
+
+
+                <div class="col-sm-6">
+                  {% if top_literate_states %}
+                  <div class="card px-md-5 mb-4 mt-2">
+                      <h5 class="card-title">Top Literate States</h5>
+                        <div class="table-responsive">
+                          <table class="table table-hover table-striped bg-body-tertiary">
+                            <thead class="table-secondary">
+                              <tr>
+                                <th>State</th>
+                                <th>Literacy</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for state in top_literate_states %}
+                              <tr>
+                                <td>
+                                <a href="{% url 'district_list' state.slug %}" title="{{state.name}} Population">{{state.name}}</a>
+                                </td>
+                                <td>{{ state.state_years.all.0.data.literates_persons|mul:100|div:state.state_years.all.0.data.total_popul_persons|floatformat:2}} %</td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                            </table>
+                          </div>
+                            <p class="card-text">Kerala has consistently ranked top in last few decades in terms of literacy.</p>
+                            <a href="#" class="btn btn-secondary">Top Literate States</a>
+                        </div>
+                    {% else %}
+                  <p>No Data are available.</p>
+                  {% endif %}
+                </div>
+            </div>
+
+            <br>
+
+            <div class="row">
+              <div class="col-sm-6">
+                {% if big_cities %}
+                <div class="card px-md-5 mb-4 mt-2 border border-0">
+                    <h5 class="card-title">Most Populated Cities</h5>
+                      <div class="table-responsive">
+                        <table class="table table-hover table-striped bg-body-tertiary">
+                          <thead class="table-secondary">
+                            <tr>
+                              <th>City</th>
+                              <th>State</th>
+                              <th>Population</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for city in big_cities %}
+                            <tr>
+                              <td><a href="{% url 'village_list' city.slug %}" title="{{city.name}} Population">{{city.name}}</a></td>
+                              <td><a href="{% url 'district_list' slug=city.state.slug %}" title="{{city.state.name}} Population">{{city.state}}</a></td>
+                              <td>{{ city.city_years.all.0.data.total_popul_persons}}</td>
+                            </tr>
+                             {% endfor %}
+                          </tbody>
+                        </table>
+                        </div>
+                          <p class="card-text">The Urban Metropolitan regions have witness huge population increase in the last 10 years.</p>
+                          <a href="#" class="btn btn-secondary">Most Populated Metropolitan</a>
+                    </div>
+                  {% else %}
+                  <p>No Data are available.</p>
+                  {% endif %}
+                </div>
+
+
+                <div class="col-sm-6">
+                  {% if top_literate_states %}
+                  <div class="card px-md-5 mb-4 mt-2 border border-0">
+                      <h5 class="card-title">Top Literate States</h5>
+                        <div class="table-responsive">
+                          <table class="table table-hover table-striped bg-body-tertiary">
+                            <thead class="table-secondary">
+                              <tr>
+                                <th>State</th>
+                                <th>Literacy</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for state in top_literate_states %}
+                              <tr>
+                                <td>
+                                <a href="{% url 'district_list' state.slug %}" title="{{state.name}} Population">{{state.name}}</a>
+                                </td>
+                                <td>{{ state.state_years.all.0.data.literates_persons|mul:100|div:state.state_years.all.0.data.total_popul_persons|floatformat:2}} %</td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                            </table>
+                          </div>
+                            <p class="card-text">Kerala has consistently ranked top in last few decades in terms of literacy.</p>
+                            <a href="#" class="btn btn-secondary">Top Literate States</a>
+                        </div>
+                    {% else %}
+                  <p>No Data are available.</p>
+                  {% endif %}
+                </div>
+            </div>
+        </section>
+    </div>
 
       <!-- Bootstrap JS and dependencies -->
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
