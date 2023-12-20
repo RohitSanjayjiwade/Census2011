@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+<<<<<<< HEAD, =======, and >>>>>>>
 """
 Django settings for my_app project.
 
