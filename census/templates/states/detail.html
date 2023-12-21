@@ -93,7 +93,7 @@
             <li class="breadcrumb-item active" aria-current="page"><a href="#districtList">{{state}} District List</a></li>
           </ol>
         </nav>
-        
+
         <!-- Information Above Table -->
         <div class="row mb-3 px-3 px-md-5 mt-2">
           <h1 class="h1 px-3">
@@ -102,7 +102,7 @@
             <div class="col">
                 <!-- Add your information here -->
                 <!-- <p>Your information goes here.</p> -->
-                <p id="description-paragraph" class="text-sm-start mb-0"> 
+                <p id="description-paragraph" class="text-sm-start mb-0">
                     Here is the population data for {{state}}:
                 <br>
                 <br>
@@ -136,7 +136,7 @@
                 <th scope="col" class="text-center">Female</th>
               </tr>
             </thead>
-            <tbody> 
+            <tbody>
               <tr>
                 <th>1</th>
                 <th>Number Of Houshold</th>
@@ -354,7 +354,7 @@
             <div class="col">
                 <!-- Add your information here -->
                 <!-- <p>Your information goes here.</p> -->
-                <p class="text-sm-start mb-0"> 
+                <p class="text-sm-start mb-0">
                     Analyzing the workforce, {{state}} boasts a substantial total of {{ state.state_years.all.0.data.total_workers_persons|intcomma}} workers, encompassing {{ state.state_years.all.0.data.total_workers_males|intcomma}} males and {{ state.state_years.all.0.data.total_workers_females|intcomma}} females. Among them, {{ state.state_years.all.0.data.main_workers_persons|intcomma}} are classified as main workers, engaged in diverse occupations such as cultivation, agricultural labor, household industries, and other fields.
                 <br>
                 <br>
@@ -386,7 +386,7 @@
                 <th scope="col" class="text-center">Population(Urban)</th>
               </tr>
             </thead>
-            <tbody> 
+            <tbody>
 
               {% for district in state.district_set.all %}
               <tr>
