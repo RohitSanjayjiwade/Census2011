@@ -30,12 +30,14 @@ def district_list(request, slug):
 
 def city_list(request, slug):
     district = get_object_or_404(District, slug=slug)
-    description = "As of the latest census data, the area comprises {} households, " \
+    description = "{}, a region known for its diverse demographics, " \
+                  "As of the latest census data, the area comprises {} households, " \
                   "fostering a sense of community and shared experiences. " \
                   "The total population stands at {}, " \
                   "with {} males and {} females, " \
                   "highlighting a balanced gender distribution within the region. " \
                   "<a href='#description-paragraph'>Read more</a>".format(
+                      district,
                       intword(district.district_years.all()[0].data.no_of_houshold),
                       intword(district.district_years.all()[0].data.total_popul_persons),
                       intword(district.district_years.all()[0].data.total_popul_males),
