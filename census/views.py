@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from .models import State, District, City, Village
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F, ExpressionWrapper, fields, Sum
-from django.utils.html import escape
+from django.contrib.humanize.templatetags.humanize import intword
 # Create your views here.
 
 def index(request):
@@ -30,22 +30,22 @@ def district_list(request, slug):
 
 def city_list(request, slug):
     district = get_object_or_404(District, slug=slug)
-    description = "{district}, a region known for its diverse demographics, exhibits intriguing insights into its societal fabric. " \
-                  "A closer look at the age demographics unveils that the total child population (0-6 age group) is {district.district_years.all.0.data.popul_in_agePersons|intcomma}, " \
-                  "further divided into {district.district_years.all.0.data.popul_in_ageMales|intcomma} males and {district.district_years.all.0.data.popul_in_ageFemales|intcomma} females. " \
-                  "Additionally, {district} is home to a modest yet distinct Caste Population of {district.district_years.all.0.data.caste_popul_persons|intcomma}, " \
-                  "with a negligible gender disparity. The Tribe Population, totaling {district.district_years.all.0.data.tribe_popul_persons|intcomma} individuals, " \
-                  "reflects the rich cultural diversity present, with {district.district_years.all.0.data.tribe_popul_males|intcomma} males and {district.district_years.all.0.data.tribe_popul_females|intcomma} females. " \
+    description = "{} , a region known for its diverse demographics, exhibits intriguing insights into its societal fabric. " \
+                  "A closer look at the age demographics unveils that the total child population (0-6 age group) is {}, " \
+                  "further divided into {} males and {} females. " \
+                  "Additionally, {} is home to a modest yet distinct Caste Population of {}, " \
+                  "with a negligible gender disparity. The Tribe Population, totaling {}, " \
+                  "reflects the rich cultural diversity present, with {} males and {} females. " \
                   "<a href='#description-paragraph'>Read more</a>".format(
                       district,
-                      district.district_years.all()[0].data.popul_in_agePersons|intcomma,
-                      district.district_years.all()[0].data.popul_in_ageMales|intcomma,
-                      district.district_years.all()[0].data.popul_in_ageFemales|intcomma,
+                      intword(district.district_years.all()[0].data.popul_in_agePersons),
+                      intword(district.district_years.all()[0].data.popul_in_ageMales),
+                      intword(district.district_years.all()[0].data.popul_in_ageFemales),
                       district,
-                      district.district_years.all()[0].data.caste_popul_persons|intcomma,
-                      district.district_years.all()[0].data.tribe_popul_persons|intcomma,
-                      district.district_years.all()[0].data.tribe_popul_males|intcomma,
-                      district.district_years.all()[0].data.tribe_popul_females|intcomma
+                      intword(district.district_years.all()[0].data.caste_popul_persons),
+                      intword(district.district_years.all()[0].data.tribe_popul_persons),
+                      intword(district.district_years.all()[0].data.tribe_popul_males),
+                      intword(district.district_years.all()[0].data.tribe_popul_females)
                   )
     return render(request, "states/cities.html",{"district": district, "description": description})
 
