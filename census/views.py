@@ -30,7 +30,7 @@ def district_list(request, slug):
 
 def city_list(request, slug):
     district = get_object_or_404(District, slug=slug)
-    description = escape("... <a href='#description-paragraph'>Read more</a> ...")
+    description = "... <a href='#description-paragraph'>Read more</a> ..."
     return render(request, "states/cities.html",{"district": district, "description": description})
 
 def district(request):
