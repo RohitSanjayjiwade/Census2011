@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ['192.168.1.10']
 
 INSTALLED_APPS = [
     'humanize',
-    'mathfilters',
     'django.contrib.humanize',
     'mathfilters',
     'census.apps.CensusConfig',
@@ -153,7 +152,7 @@ SECRET_KEY = 'django-insecure-^whu9%v+7uj9=e@s2$8^2el%8rx0^s%qtv!*%c_)nw=0oc1+m%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['rohitjiwade.pythonanywhere.com']
+# ALLOWED_HOSTS = ['rohitjiwade.pythonanywhere.com']
 
 
 # Application definition
