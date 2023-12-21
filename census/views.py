@@ -30,22 +30,16 @@ def district_list(request, slug):
 
 def city_list(request, slug):
     district = get_object_or_404(District, slug=slug)
-    description = "{} , a region known for its diverse demographics, exhibits intriguing insights into its societal fabric. " \
-                  "A closer look at the age demographics unveils that the total child population (0-6 age group) is {}, " \
-                  "further divided into {} males and {} females. " \
-                  "Additionally, {} is home to a modest yet distinct Caste Population of {}, " \
-                  "with a negligible gender disparity. The Tribe Population, totaling {}, " \
-                  "reflects the rich cultural diversity present, with {} males and {} females. " \
+    description = "As of the latest census data, the area comprises {} households, " \
+                  "fostering a sense of community and shared experiences. " \
+                  "The total population stands at {}, " \
+                  "with {} males and {} females, " \
+                  "highlighting a balanced gender distribution within the region. " \
                   "<a href='#description-paragraph'>Read more</a>".format(
-                      district,
-                      intword(district.district_years.all()[0].data.popul_in_agePersons),
-                      intword(district.district_years.all()[0].data.popul_in_ageMales),
-                      intword(district.district_years.all()[0].data.popul_in_ageFemales),
-                      district,
-                      intword(district.district_years.all()[0].data.caste_popul_persons),
-                      intword(district.district_years.all()[0].data.tribe_popul_persons),
-                      intword(district.district_years.all()[0].data.tribe_popul_males),
-                      intword(district.district_years.all()[0].data.tribe_popul_females)
+                      intword(district.district_years.all()[0].data.no_of_houshold),
+                      intword(district.district_years.all()[0].data.total_popul_persons),
+                      intword(district.district_years.all()[0].data.total_popul_males),
+                      intword(district.district_years.all()[0].data.total_popul_females),
                   )
     return render(request, "states/cities.html",{"district": district, "description": description})
 
