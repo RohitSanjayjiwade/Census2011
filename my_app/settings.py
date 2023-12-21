@@ -157,6 +157,7 @@ DEBUG = True
 # Application definition
 
 INSTALLED_APPS = [
+    'humanize',
     'mathfilters',
     'census.apps.CensusConfig',
     'django.contrib.admin',
