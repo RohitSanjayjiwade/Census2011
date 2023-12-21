@@ -30,20 +30,18 @@ def district_list(request, slug):
 
 def city_list(request, slug):
     district = get_object_or_404(District, slug=slug)
-    description = "{}, a region known for its diverse demographics, " \
-                  "As of the latest census data, the area comprises {} households, " \
-                  "fostering a sense of community and shared experiences. " \
-                  "The total population stands at {}, " \
-                  "with {} males and {} females, " \
-                  "highlighting a balanced gender distribution within the region. " \
-                  "<a href='#description-paragraph'>Read more</a>".format(
-                      district,
-                      intword(district.district_years.all()[0].data.no_of_houshold),
-                      intword(district.district_years.all()[0].data.total_popul_persons),
-                      intword(district.district_years.all()[0].data.total_popul_males),
-                      intword(district.district_years.all()[0].data.total_popul_females),
-                  )
-    return render(request, "states/cities.html",{"district": district, "description": description})
+    data = district.district_years.all()[0].data
+
+    description = f"{district}, a region known for its diverse demographics, " \
+                  f"As of the latest census data, the area comprises {intword(data.no_of_houshold)} households, " \
+                  f"fostering a sense of community and shared experiences. " \
+                  f"The total population stands at {intword(data.total_popul_persons)}, " \
+                  f"with {intword(data.total_popul_males)} males and {intword(data.total_popul_females)} females, " \
+                  f"highlighting a balanced gender distribution within the region. " \
+                  f"<a href='#description-paragraph'>Read more</a>"
+
+    return render(request, "states/cities.html", {"district": district, "description": description})
+
 
 def district(request):
     district_list = District.objects.all().order_by('name')  # Replace 'name' with the actual field name you want to order by
@@ -66,6 +64,14 @@ def district(request):
 
 def village_list(request, slug):
     city = get_object_or_404(City, slug=slug)
+    data = city.city_years.all()[0].data
+
+    description = f"In {city}, there are a total of {intword(data.no_of_houshold)} households. " \
+                  f"The overall population stands at {intword(data.total_popul_persons)}, " \
+                  f"with {intword(data.total_popul_males)} males and {intword(data.total_popul_females)} females. " \
+                  f"Among them, {intword(data.popul_in_agePersons)}are children in the age group of 0-6, " \
+                  f"comprising {intword(data.popul_in_ageMales)} males and {intword(data.popul_in_ageFemales)} females. " \
+                  f"<a href='#description-paragraph'>Read more</a>"
 
     items_per_page = 10
     paginator = Paginator(city.village_set.all().order_by('name'), items_per_page)
@@ -79,7 +85,7 @@ def village_list(request, slug):
     except EmptyPage:
         # If page is out of range (e.g. 9999), deliver the last page of results.
         paginated_data = paginator.page(paginator.num_pages)
-    return render(request, "states/villages.html",{"city": city, "villages_list": paginated_data})
+    return render(request, "states/villages.html",{"city": city, "villages_list": paginated_data , "description": description})
 
 def village(request):
     villages_list = Village.objects.all().order_by('name')
