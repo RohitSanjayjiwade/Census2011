@@ -30,13 +30,23 @@ def district_list(request, slug):
 
 def city_list(request, slug):
     district = get_object_or_404(District, slug=slug)
-    description = f"{district}, a region known for its diverse demographics, exhibits intriguing insights into its societal fabric. " \
-                  f"A closer look at the age demographics unveils that the total child population (0-6 age group) is {district.district_years.all.0.data.popul_in_agePersons|intcomma}, " \
-                  f"further divided into {district.district_years.all.0.data.popul_in_ageMales|intcomma} males and {district.district_years.all.0.data.popul_in_ageFemales|intcomma} females. " \
-                  f"Additionally, {district} is home to a modest yet distinct Caste Population of {district.district_years.all.0.data.caste_popul_persons|intcomma}, " \
-                  f"with a negligible gender disparity. The Tribe Population, totaling {district.district_years.all.0.data.tribe_popul_persons|intcomma} individuals, " \
-                  f"reflects the rich cultural diversity present, with {district.district_years.all.0.data.tribe_popul_males|intcomma} males and {district.district_years.all.0.data.tribe_popul_females|intcomma} females. " \
-                  f"<a href='#description-paragraph'>Read more</a>"
+    description = "{district}, a region known for its diverse demographics, exhibits intriguing insights into its societal fabric. " \
+                  "A closer look at the age demographics unveils that the total child population (0-6 age group) is {district.district_years.all.0.data.popul_in_agePersons|intcomma}, " \
+                  "further divided into {district.district_years.all.0.data.popul_in_ageMales|intcomma} males and {district.district_years.all.0.data.popul_in_ageFemales|intcomma} females. " \
+                  "Additionally, {district} is home to a modest yet distinct Caste Population of {district.district_years.all.0.data.caste_popul_persons|intcomma}, " \
+                  "with a negligible gender disparity. The Tribe Population, totaling {district.district_years.all.0.data.tribe_popul_persons|intcomma} individuals, " \
+                  "reflects the rich cultural diversity present, with {district.district_years.all.0.data.tribe_popul_males|intcomma} males and {district.district_years.all.0.data.tribe_popul_females|intcomma} females. " \
+                  "<a href='#description-paragraph'>Read more</a>".format(
+                      district,
+                      district.district_years.all()[0].data.popul_in_agePersons|intcomma,
+                      district.district_years.all()[0].data.popul_in_ageMales|intcomma,
+                      district.district_years.all()[0].data.popul_in_ageFemales|intcomma,
+                      district,
+                      district.district_years.all()[0].data.caste_popul_persons|intcomma,
+                      district.district_years.all()[0].data.tribe_popul_persons|intcomma,
+                      district.district_years.all()[0].data.tribe_popul_males|intcomma,
+                      district.district_years.all()[0].data.tribe_popul_females|intcomma
+                  )
     return render(request, "states/cities.html",{"district": district, "description": description})
 
 def district(request):
