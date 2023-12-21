@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['192.168.1.10']
 # Application definition
 
 INSTALLED_APPS = [
+    'humanize',
     'mathfilters',
     'django.contrib.humanize',
     'census.apps.CensusConfig',
