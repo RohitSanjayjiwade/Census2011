@@ -25,7 +25,16 @@ def state_list(request):
 
 def district_list(request, slug):
     state = get_object_or_404(State, slug=slug)
-    return render(request, "states/detail.html", {"state": state})
+    data = state.state_years.all()[0].data
+
+    description = f"The latest census reveals that the region accommodates {(data.no_of_houshold)} households, " \
+                  f"forming the foundation of its vibrant communities. " \
+                  f"fostering a sense of community and shared experiences. " \
+                  f"The total population of {(data.total_popul_persons)} is distributed with {(data.total_popul_males)} males and {(data.total_popul_females)} females, " \
+                  f"depicting a balanced gender ratio. " \
+                  f"<a href='#description-paragraph'>Read more</a>"
+
+    return render(request, "states/detail.html", {"state": state, "description": description})
 
 
 def city_list(request, slug):
@@ -127,7 +136,16 @@ def cities(request):
 
 def village_info(request, slug):
     village_info = get_object_or_404(Village, slug=slug)
-    return render(request, "states/villageInfo.html",{"village": village_info})
+    rural_data = village_info.village_years.all()[0].rural_data
+
+    description = f"In {village_info.name} village, there are a total of {intword(rural_data.no_of_houshold)} households. " \
+                  f"The overall population stands at {intword(rural_data.total_popul_persons)}, " \
+                  f"with {intword(rural_data.total_popul_males)} males and {intword(rural_data.total_popul_females)} females. " \
+                  f"Among them, the child population (0-6 age group) comprises {(rural_data.popul_in_agePersons)} individuals, " \
+                  f"including {intword(rural_data.popul_in_ageMales)} males and {intword(rural_data.popul_in_ageFemales)} females. " \
+                  f"<a href='#description-paragraph'>Read more</a>"
+
+    return render(request, "states/villageInfo.html",{"village": village_info, "description": description})
 
 def get_location(request):
     village_data = None
