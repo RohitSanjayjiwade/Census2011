@@ -152,12 +152,13 @@ SECRET_KEY = 'django-insecure-^whu9%v+7uj9=e@s2$8^2el%8rx0^s%qtv!*%c_)nw=0oc1+m%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['rohitjiwade.pythonanywhere.com']
+# ALLOWED_HOSTS = ['rohitjiwade.pythonanywhere.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'humanize',
     'mathfilters',
     'census.apps.CensusConfig',
     'django.contrib.admin',
