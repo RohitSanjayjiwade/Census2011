@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import State, District, City, Village
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import F, ExpressionWrapper, fields, Sum
+from django.utils.html import escape
 # Create your views here.
 
 def index(request):
@@ -29,7 +30,8 @@ def district_list(request, slug):
 
 def city_list(request, slug):
     district = get_object_or_404(District, slug=slug)
-    return render(request, "states/cities.html",{"district": district})
+    description = escape("... <a href='#description-paragraph'>Read more</a> ...")
+    return render(request, "states/cities.html",{"district": district, "description": description})
 
 def district(request):
     district_list = District.objects.all().order_by('name')  # Replace 'name' with the actual field name you want to order by
