@@ -97,11 +97,10 @@
                 <!-- Add your information here -->
                 <!-- <p>Your information goes here.</p> -->
                 <p id="description-paragraph" class="text-sm-start mb-0"> 
-                    The Indian Census 2011 can be referred to as the seventh census operation after Indian independence. The national census 2011 has been run on all the 28 states of the country and the seven Union Territories. There have been surveys on cities and districts as well. The data of Indian census 2011 covers all the major aspects of society like population, sex ratio and literacy percentage as well. Here is a list on census 2011 data of India.
+                    The official census in India is calculated every 5 years. The most recent one was conducted in the year 2011. The entire process was done in 2 main phases of house listing and population listing respectively. The official census calculation started in the month of April, 2010. The town, district, village and city population 2011 was calculated over a period of 1 year. There are over 6lac villages and thousands of towns and districts in India.
                 <br>
                 <br>
-                    There are presently 28 states in India. The total population of the country is 1.21 billion presently. According to the State Census 2011, the most populated state in India is Uttar Pradesh with a population of 19.96 crores. The least populated state in the country is Sikkim with a population of 60, 7688. The census of Indian states 2011 reveals that Kerala is the highest literate state in the country with 93.91% of literacy rate. Bihar is the least literate state with a literacy rate of 63.82%. The Indian census 2011 state wise shows that Kerala represents the highest sex ratio with 1084 females per 1000 males while Haryana features the lowest sex ratio in India with just 877 women per 1000 males.
-
+                    The data was collected on the basis of several categories like age, sex, occupation, housing details, ownership details, literacy rates, standard of living and other details. There were certain criteria and definitions chalked out for the census of 2011. The total population of Urban Agglomeration (UA) and the city's population 2011 were calculated. The total census population of India 2011 was found out to be 1,210,854,977. Due to fast urbanization and developing and growing technology, it has been predicted that within 50 years, the population will go beyond one and a half billion.
                 </p>
             </div>
         </div>
@@ -126,7 +125,7 @@
 
                 {% for cities in cities_list %}
                 <tr>
-                  <th scope="row">{{cities.city_code}}</th>
+                  <th scope="row">{{ cities_list.start_index|default:0|add:forloop.counter0 }}</th>
                   <td><a href="{% url 'village_list' cities.slug %}">{{cities.name}}</a></td>
                   <td><a href="{% url 'district_list' slug=cities.state.slug %}">{{cities.state}}</a></td>
                   <td class="text-center">{{ cities.city_years.all.0.data.total_popul_persons}}</td>

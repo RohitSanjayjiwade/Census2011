@@ -96,11 +96,10 @@
                 <!-- Add your information here -->
                 <!-- <p>Your information goes here.</p> -->
                  <p id="description-paragraph" class="text-sm-start mb-0"> 
-                    The Indian Census 2011 can be referred to as the seventh census operation after Indian independence. The national census 2011 has been run on all the 28 states of the country and the seven Union Territories. There have been surveys on cities and districts as well. The data of Indian census 2011 covers all the major aspects of society like population, sex ratio and literacy percentage as well. Here is a list on census 2011 data of India.
+                   According to the Census Statistics 2011, the population of India was 1,210,854,977 with 623,270,258 males and 587,584,719 females. Literacy was found to be a total of 74.04% with 65.46% literate females and 82.14% males. This was a 9.81% increase since the last census. The density of population was found out to be 382 per square kilometers. The total sex ratio was 940 females to 1000 males. The child sex ratio (of ages 0 to 6 years old) was 914 females to 1000 males. The growth rate was 17.64% and the death rate was 21.5%.
                 <br>
                 <br>
-                    There are presently 28 states in India. The total population of the country is 1.21 billion presently. According to the State Census 2011, the most populated state in India is Uttar Pradesh with a population of 19.96 crores. The least populated state in the country is Sikkim with a population of 60, 7688. The census of Indian states 2011 reveals that Kerala is the highest literate state in the country with 93.91% of literacy rate. Bihar is the least literate state with a literacy rate of 63.82%. The Indian census 2011 state wise shows that Kerala represents the highest sex ratio with 1084 females per 1000 males while Haryana features the lowest sex ratio in India with just 877 women per 1000 males.
-
+                    Census is the process by which the information of a given population is calculated on the basis of economical, educational and social records, in a given period of time. Census is calculated after regular time intervals. These are some basic census facts. In India, the census is carried out every 5 years. The last census was calculated in the year 2011. This official census 2011 was the 15th census calculation which was done India. It was carried out in two main phases- population listing and house enumeration.
                 </p>
             </div>
         </div>
@@ -127,7 +126,7 @@
 
                   {% for district in district_list %}
                   <tr>
-                    <th scope="row">{{district.district_code}}</th>
+                    <th scope="row">{{ district_list.start_index|default:0|add:forloop.counter0 }}</th>
                     <td><a href="{% url 'city_list' district.slug %}">{{ district.name }}</a></td>
                     <td><a href="{% url 'district_list' slug=district.state.slug %}">{{ district.state }}</a></td>
                     <td class="text-center">{{ district.district_years.all.0.data.total_popul_persons}}</td>

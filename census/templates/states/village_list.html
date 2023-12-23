@@ -127,7 +127,7 @@
 
                     {% for village in villages_list %}
                     <tr>
-                      <th scope="row">{{village.village_code}}</th>
+                      <th scope="row">{{ villages_list.start_index|default:0|add:forloop.counter0 }}</th>
                       <td><a href="{% url 'village_info' village.slug %}">{{ village.name }}</a></td>
                       <td><a href="{% url 'district_list' slug=village.state.slug %}">{{ village.state }}</a></td>
                       <td><a href="{% url 'city_list' slug=village.district.slug%}">{{ village.district }}</a></td>

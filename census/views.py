@@ -19,8 +19,8 @@ def index(request):
     return render(request, "states/index.html", {"big_cities": big_cities, "top_literate_states": top_literate_states})
 
 def state_list(request):
-    state_list = State.objects.all() 
-    print(state_list)
+    state_list = State.objects.all().order_by('-state_years__data__total_popul_persons')
+
     return render(request, "states/states.html", {"state_list": state_list})
 
 def district_list(request, slug):
@@ -53,8 +53,8 @@ def city_list(request, slug):
 
 
 def district(request):
-    district_list = District.objects.all().order_by('name')  # Replace 'name' with the actual field name you want to order by
-
+    district_list = District.objects.annotate(total_population=Sum('district_years__data__total_popul_persons')).order_by('-total_population')
+    # Number of items to display per page  # Replace 'name' with the actual field name you want to order by
     # Number of items to display per page
     items_per_page = 10
     paginator = Paginator(district_list, items_per_page)
@@ -97,7 +97,7 @@ def village_list(request, slug):
     return render(request, "states/villages.html",{"city": city, "villages_list": paginated_data , "description": description})
 
 def village(request):
-    villages_list = Village.objects.all().order_by('name')
+    villages_list = Village.objects.annotate(total_population=Sum('village_years__rural_data__total_popul_persons')).order_by('-total_population')
 
     # Number of items to display per page
     items_per_page = 10
@@ -116,7 +116,7 @@ def village(request):
     return render(request, "states/village_list.html",{"villages_list": paginated_data})
 
 def cities(request):
-    cities = City.objects.all().order_by('name')
+    cities = City.objects.annotate(total_population=Sum('city_years__data__total_popul_persons')).order_by('-total_population')
 
     # Number of items to display per page
     items_per_page = 10

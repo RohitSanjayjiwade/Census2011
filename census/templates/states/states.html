@@ -6,21 +6,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <meta name="description" content="{% if description %}{{ description|safe }}{% endif %}">
     <title>List of states with Population(Total)|Population(Rural)|Population(Urban) - Population Census 2011</title>
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.build_absolute_uri }}">
     <meta property="og:title" content="List of states with Population(Total)|Population(Rural)|Population(Urban)">
-    <meta property="og:description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <meta property="og:description" content="{{ description|safe }}">
     <!-- <meta property="og:image" content="{{ state.image.url }}"> -->
 
      <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="{{ request.build_absolute_uri }}">
     <meta property="twitter:title" content="List of states with Population(Total)|Population(Rural)|Population(Urban)">
-    <meta property="twitter:description" content="... <a href='#description-paragraph'>Read more</a> ...">
+    <meta property="twitter:description" content="{{ description|safe }}">
     <!-- <meta property="twitter:image" content="{{ state.image.url }}"> -->
 
     <!-- Favicon -->
@@ -129,7 +129,7 @@
                         <tbody>
                             {% for state in state_list %}
                             <tr>
-                                <th scope="row">{{ state.state_code }}</th>
+                                <th scope="row">{{ state_list.start_index|default:0|add:forloop.counter }}</th>
                                 <td><a href="{% url 'district_list' slug=state.slug %}">{{ state.name }}</a></td>
                                 <td class="text-center">{{ state.state_years.all.0.data.total_popul_persons }}</td>
                                 <td class="text-center">{{ state.state_years.all.0.rural_data.total_popul_persons }}</td>

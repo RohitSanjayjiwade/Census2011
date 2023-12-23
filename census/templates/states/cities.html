@@ -379,7 +379,7 @@
 
                 {% for city in district.city_set.all %}
                 <tr>
-                  <th scope="row">{{city.city_code}}</th>
+                  <th scope="row">{{ district.city_set.all.start_index|default:0|add:forloop.counter }}</th>
                   <td><a href="{% url 'village_list' city.slug%}">{{ city.name }}</a></td>
                   <td class="text-center">{{ city.city_years.all.0.data.total_popul_persons|intcomma}}</td>
                   <td class="text-center">{{ city.city_years.all.0.rural_data.total_popul_persons|intcomma}}</td>
