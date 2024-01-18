@@ -1,2 +1,2 @@
 # Census2011
-Census2011, formerly known as CensusAtlas, is a Python Django project exclusively developed for the meticulous management and exploration census data. Built with Python and the Django framework, this platform offers an intuitive interface for users to navigate and analyze data across various administrative levels, including states, districts, cities, and villages.
+Census2011 is a dynamic Python Django project meticulously crafted for efficient census data management and exploration. Developed exclusively with the Python and Django frameworks, this platform provides a user-friendly interface for navigating and analyzing data across various administrative levels, including states, districts, cities, and villages.
